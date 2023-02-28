@@ -7,6 +7,7 @@ public class ReversiApp {
 
     public static void main(String [] args) {
         // проверка работы конструктора с копированием - заполняем не по умолчанию
+        /*
         CBoard board = new CBoard();
         for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
             for (int i = 0; i < CBoard.CB_XWIDTH; i++) {
@@ -20,9 +21,9 @@ public class ReversiApp {
         board.set(3, 3, ChessBoard.CS_BLACK);
         // проверка работы конструктора с копированием
         ChessBoard chessBoard = new ChessBoard(board);
-
-        //ChessBoard chessBoard = new ChessBoard();
-        //chessBoard.initBoard();
+        */
+        ChessBoard chessBoard = new ChessBoard();
+        chessBoard.initBoard();
         chessBoard.showBoard();
         //System.out.println(chessBoard.countChips(ChessBoard.CS_WHITE));
 

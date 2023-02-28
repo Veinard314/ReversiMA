@@ -132,15 +132,32 @@ public class ChessBoard {
         }
     }
 
-    //Анализирует доску на предмет окончания партии
-    // - есть ли пустые клетки?
-    // - если да, то можно ли в них сделать ход?
-    //public int isFinished() {
-    //}
 
-    //
 
+    // тестовый метод: для Игрока player возвращает количество возможных (допустимых)
+    // ходов при текущей позиции на доске cb, координаты (pair) лучшего хода для Игрока player
     public int Test(int player, CPair pair) {
+        int possibleMoves = 0;
+        int bestScore = Integer.MIN_VALUE;
+        //CPair pair = new CPair(0,0);
+        for (int j = 1; j <= CBoard.CB_DIM; j++){
+            for (int i = 1; i<= CBoard.CB_DIM; i++) {
+                if (GetSquare(i, j) == CS_EMPTY) {
+                    int res = findFlippedChips(i, j, player);
+                    if (res > 0) {
+                        possibleMoves++;
+                        if (bestScore < res) {
+                            bestScore = res;
+                            pair.x = i;
+                            pair.y = j;
+                        }
+                    }
+                }
+            }
+        }
+        return possibleMoves;
+    }
+    public int Test2(int player, CPair pair) {
         int possibleMoves = 0;
         int bestScore = Integer.MIN_VALUE;
         //CPair pair = new CPair(0,0);
