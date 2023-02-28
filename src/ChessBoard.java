@@ -43,10 +43,14 @@ public class ChessBoard {
         try {
             cb = board.clone();
         } catch (Exception e) {
-            System.out.println(":jgf");
+            System.out.println("CBoard clone failed. Program aborted.");
             //cb = null;
         }
 
+    }
+
+    public CBoard getCBoard () {
+        return cb;
     }
 
     public void initBoard() {
