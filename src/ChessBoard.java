@@ -52,7 +52,7 @@ public class ChessBoard {
     public CBoard getCBoard () {
         return cb;
     }
-
+    // Устанавливает на поле стандартную первоначальную позицию, инициализирует в т.ч. края поля.
     public void initBoard() {
         for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
                  for (int i = 0; i < CBoard.CB_XWIDTH; i++) {
@@ -64,6 +64,16 @@ public class ChessBoard {
         SetSquare(5, 4, CS_WHITE);
         SetSquare(4, 5, CS_WHITE);
         SetSquare(5, 5, CS_BLACK);
+    }
+
+    // Основной алгоритм (depth - четный??
+    public int miniMax(CBoard board, int player, int depth) {
+        ChessBoard newBoard = new ChessBoard(board);
+        //int oppositePlayer = (player == ChessBoard.CS_BLACK) ? ChessBoard.CS_WHITE : ChessBoard.CS_BLACK;
+        if (depth == 0) { //достигли заданной глубины расчета
+            return newBoard.countChips(player);
+        }
+        return 0;
     }
 
     // возвращает число фишек (chips) определенного цвета на доске;
@@ -136,6 +146,7 @@ public class ChessBoard {
 
     // тестовый метод: для Игрока player возвращает количество возможных (допустимых)
     // ходов при текущей позиции на доске cb, координаты (pair) лучшего хода для Игрока player
+    // (на основе количества переворачиваемых после хода фишек)
     public int Test(int player, CPair pair) {
         int possibleMoves = 0;
         int bestScore = Integer.MIN_VALUE;
@@ -157,27 +168,22 @@ public class ChessBoard {
         }
         return possibleMoves;
     }
-    public int Test2(int player, CPair pair) {
-        int possibleMoves = 0;
-        int bestScore = Integer.MIN_VALUE;
-        //CPair pair = new CPair(0,0);
+    // Второй тестовый метод: для Игрока player возвращает _список_ возможных (допустимых)
+    // ходов при текущей позиции на доске cb с о
+    public void Test2(int player, ArrayList<CPair> listValues) {
+        listValues.clear();
         for (int j = 1; j <= CBoard.CB_DIM; j++){
             for (int i = 1; i<= CBoard.CB_DIM; i++) {
                 if (GetSquare(i, j) == CS_EMPTY) {
                     int res = findFlippedChips(i, j, player);
                     if (res > 0) {
-                        possibleMoves++;
-                        if (bestScore < res) {
-                            bestScore = res;
-                            pair.x = i;
-                            pair.y = j;
+                        listValues.add(new CPair(i, j));
                         }
                     }
                 }
             }
-        }
-        return possibleMoves;
     }
+
 
     // временный тестовый метод
     public void showBoard () {
