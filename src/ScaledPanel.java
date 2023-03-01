@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 
@@ -82,6 +83,11 @@ public class ScaledPanel extends JPanel {
                 CPair pair = new CPair(0, 0);
                 int res = chessBoard.Test(ChessBoard.CS_BLACK, pair);
                 System.out.println(res);
+                //
+                ArrayList<CPair> moves = new ArrayList<CPair>();
+                moves.clear();
+                chessBoard.Test2(ChessBoard.CS_BLACK, moves);
+                //
                 chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.flipChips(ChessBoard.CS_BLACK);

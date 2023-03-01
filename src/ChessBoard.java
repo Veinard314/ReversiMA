@@ -178,10 +178,12 @@ public class ChessBoard {
                     int res = findFlippedChips(i, j, player);
                     if (res > 0) {
                         listValues.add(new CPair(i, j));
-                        }
+                        String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + ")";
+                        System.out.println(a);
                     }
                 }
             }
+        }
     }
 
 
