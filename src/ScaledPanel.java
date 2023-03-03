@@ -75,22 +75,32 @@ public class ScaledPanel extends JPanel {
             int col = (int) (e.getX() / DIAM) + 1;
             int row = (int) (e.getY() / DIAM) + 1;
             if (chessBoard.isLegalMove(col, row, ChessBoard.CS_WHITE)) {
+                ArrayList<CPair> moves = new ArrayList<CPair>();
+                String a = "Ход белых:"+"(" + String.valueOf(col) + "," + String.valueOf(row) + ")";
+                System.out.println(a);
+                moves.clear();
+                chessBoard.Test2(ChessBoard.CS_WHITE, moves);
+
+                chessBoard.findFlippedChips(col, row, ChessBoard.CS_WHITE);
                 chessBoard.SetSquare(col, row, ChessBoard.CS_WHITE);
                 chessBoard.flipChips(ChessBoard.CS_WHITE);
                 repaint();
                 // авто ход черных
-                //Thread.sleep(2000);
+
+                chessBoard.showBoard();
                 CPair pair = new CPair(0, 0);
                 int res = chessBoard.Test(ChessBoard.CS_BLACK, pair);
-                System.out.println(res);
+                String b = "Ход черных (робот): ("+ String.valueOf(pair.x)+","+String.valueOf(pair.y)+") из доступных "+  String.valueOf(res);
+                System.out.println(b);
                 //
-                ArrayList<CPair> moves = new ArrayList<CPair>();
+
                 moves.clear();
                 chessBoard.Test2(ChessBoard.CS_BLACK, moves);
                 //
                 chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.flipChips(ChessBoard.CS_BLACK);
+
                 repaint();
             }
 
