@@ -40,12 +40,12 @@ public class ChessBoard {
     }
     public ChessBoard(CBoard board) {
         //cb = new CBoard();
-        try {
+        //try {
             cb = board.clone();
-        } catch (Exception e) {
-            System.out.println("CBoard clone failed. Program aborted.");
+        //} catch (Exception e) {
+        //    System.out.println("CBoard clone failed. Program aborted.");
             //cb = null;
-        }
+        //}
 
     }
 
@@ -178,7 +178,7 @@ public class ChessBoard {
                     int res = findFlippedChips(i, j, player);
                     if (res > 0) {
                         listValues.add(new CPair(i, j));
-                        String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + ")";
+                        String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(res);
                         System.out.println(a);
                     }
                 }
@@ -186,6 +186,25 @@ public class ChessBoard {
         }
     }
 
+    // Третий тестовый метод : оценка позиции не по числу перевернутых фишек,
+    // а по подсчету общего числа фишек на доске после хода.
+/*
+    public void Test3(int player, CBoard board, CPair move) {
+        listValues.clear();
+        for (int j = 1; j <= CBoard.CB_DIM; j++){
+            for (int i = 1; i<= CBoard.CB_DIM; i++) {
+                if (GetSquare(i, j) == CS_EMPTY) {
+                    int res = findFlippedChips(i, j, player);
+                    if (res > 0) {
+                        listValues.add(i, j, );
+                        //String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + ")";
+                        //System.out.println(a);
+                    }
+                }
+            }
+        }
+    }
+*/
 
     // временный тестовый метод
     public void showBoard () {

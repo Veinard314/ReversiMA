@@ -87,7 +87,7 @@ public class ScaledPanel extends JPanel {
                 repaint();
                 // авто ход черных
 
-                chessBoard.showBoard();
+                //chessBoard.showBoard();
                 CPair pair = new CPair(0, 0);
                 int res = chessBoard.Test(ChessBoard.CS_BLACK, pair);
                 String b = "Ход черных (робот): ("+ String.valueOf(pair.x)+","+String.valueOf(pair.y)+") из доступных "+  String.valueOf(res);

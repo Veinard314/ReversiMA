@@ -7,16 +7,5 @@ public class CPair {
     }
 }
 
-/*
-public class ValuePair {
-    public int x;
-    public int y;
-    public int value;
 
-    public ValuePair (int x, int y, int value) {
-        this.x = x;
-        this.y = y;
-        this.value = value;
-      }
-}
-*/
+

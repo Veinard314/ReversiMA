@@ -8,9 +8,13 @@ public class CBoard implements Cloneable{
 
 
     @Override
-    protected CBoard clone() throws CloneNotSupportedException
-    {
-        return (CBoard)super.clone();
+    protected CBoard clone()  {
+        try {
+            return (CBoard)super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+
     }
 
     CBoard () {

@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="new classes + simple robot + проверка конструктора&#10;+комментарии март">
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2">
+      <change afterPath="$PROJECT_DIR$/src/VPair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CPair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677669801611</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2">
+      <created>1677868514274</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677868514274</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +132,7 @@
     <MESSAGE value="new classes + simple robot + проверка конструктора" />
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+комментарии" />
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+комментарии март" />
-    <option name="LAST_COMMIT_MESSAGE" value="new classes + simple robot + проверка конструктора&#10;+комментарии март" />
+    <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2" />
+    <option name="LAST_COMMIT_MESSAGE" value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2" />
   </component>
 </project>
