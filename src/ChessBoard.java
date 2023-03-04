@@ -79,60 +79,18 @@ public class ChessBoard {
     // возвращает число фишек (chips) определенного цвета на доске;
     // также можно использовать для подсчета пустых клеток
     public int countChips(int value){
-        int count = 0;
-        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
-            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
-                if (GetSquare(i, j) == value) count++;
-            }
-        }
-        return count;
-    }
+        return countChipsNew(value, cb);
+   }
 
     // проверяет возможность хода в указанную клетку (x,y) доски
     public boolean isLegalMove(int x, int y, int player) {
-        // если клетка не пустая сразу завершаем;
-        if (GetSquare(x,y) != CS_EMPTY) return false;
-        // пока так
-        return (findFlippedChips(x,y,player) > 0);
+        return isLegalMoveNew(x, y, player, cb);
     }
 
     // формируем список фишек, которые будут перевернуты после хода
     // игрока player (CS_WHITE/CS_BLACK) в клетку (x,y) доски
     public int findFlippedChips(int x, int y, int player) {
-        int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
-
-        int ix, iy, ofX, ofY, count;
-
-        flippedChips.clear();
-
-        for (int i = 0; i < 8; i++) {
-
-            count = 0;
-            ofX = offset[i].x;
-            ofY = offset[i].y;
-            ix = x;
-            iy = y;
-
-            // проверяем текущее направление - считаем фишки врага
-            do {
-                ix += ofX;
-                iy += ofY;
-                count++;
-
-            } while (GetSquare(ix, iy) == player2);
-            // если последняя найденная фишка - наша, добавляем переворачивыемые фишки в список
-            if ((GetSquare(ix, iy) == player) && (count > 1)) { //исключаем вариант, когда соседняя фишка - наша
-                count--;
-                for (int j = 0; j < count; j++){
-                    // заполняем с хвоста;
-                    ix -= ofX;
-                    iy -= ofY;
-                    flippedChips.add(new CPair(ix, iy));
-                 }
-            }
-        }
-        //
-        return flippedChips.size();
+        return findFlippedChipsNew(x, y, player, flippedChips, cb);
     }
 
     // переворачивает найденные фишки на доске
@@ -205,6 +163,71 @@ public class ChessBoard {
         }
     }
 */
+
+    //Методы, которые работают с прямым указанием доски CBoard
+    /*********************************************************/
+    // возвращает число фишек (chips) определенного цвета на доске (board);
+    // также можно использовать для подсчета пустых клеток
+    public int countChipsNew(int value, CBoard board){
+        int count = 0;
+        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
+            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
+                if (board.get(i, j) == value) count++;
+            }
+        }
+        return count;
+    }
+
+    // Метод возвращает количество фишек, которые будут перевернуты после хода в клетку (x,y) доски board
+    // фишки игрока player (CS_WHITE/CS_BLACK).
+    // Формируется также список  (координаты) фишек (toFlip), которые будут перевернуты после хода
+     public int findFlippedChipsNew(int x, int y, int player, ArrayList<CPair> toFlip, CBoard board) {
+        int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
+        int ix, iy, ofX, ofY, count;
+        toFlip.clear();
+        for (int i = 0; i < 8; i++) {
+            count = 0;
+            ofX = offset[i].x;
+            ofY = offset[i].y;
+            ix = x;
+            iy = y;
+            // проверяем текущее направление - считаем фишки врага
+            do {
+                ix += ofX;
+                iy += ofY;
+                count++;
+            } while (board.get(ix, iy) == player2);
+            // если последняя найденная фишка - наша, добавляем переворачивыемые фишки в список
+            if ((board.get(ix, iy) == player) && (count > 1)) { //исключаем вариант, когда соседняя фишка - наша
+                count--;
+                for (int j = 0; j < count; j++){
+                    // заполняем с хвоста;
+                    ix -= ofX;
+                    iy -= ofY;
+                    toFlip.add(new CPair(ix, iy));
+                }
+            }
+        }
+        return toFlip.size();
+    }
+
+    // Применяет ход игрока player в клетку (x, y) на доску board
+    // найденный методом findFlippedChipsNew (переворачивает фишки сз списка toFlip на доске)
+    public void flipChipsNew(int x, int y, int player, ArrayList<CPair> toFlip, CBoard board) {
+        board.set(x, y, player);
+        for (CPair t : toFlip) {
+            board.set(t.x, t.y, player);
+        }
+    }
+
+    // Проверяет возможность хода в указанную клетку (x,y) доски board фишки игрока player (CS_WHITE/CS_BLACK)
+    public boolean isLegalMoveNew(int x, int y, int player, CBoard board) {
+        ArrayList<CPair> toFlip = new ArrayList<>();
+        // если клетка не пустая сразу завершаем;
+        if (board.get(x, y) != CS_EMPTY) return false;
+        else return (findFlippedChipsNew(x, y, player, toFlip, board) > 0);
+    }
+
 
     // временный тестовый метод
     public void showBoard () {
