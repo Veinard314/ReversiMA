@@ -39,14 +39,7 @@ public class ChessBoard {
       cb = new CBoard();
     }
     public ChessBoard(CBoard board) {
-        //cb = new CBoard();
-        //try {
-            cb = board.clone();
-        //} catch (Exception e) {
-        //    System.out.println("CBoard clone failed. Program aborted.");
-            //cb = null;
-        //}
-
+         cb = board.clone();
     }
 
     public CBoard getCBoard () {

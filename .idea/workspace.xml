@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый метод копирования CBoard, новые методы *New">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New">
       <change beforePath="$PROJECT_DIR$/src/CBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReversiApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReversiApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677925386645</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New">
+      <created>1677939316155</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1677939316155</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -148,6 +151,7 @@
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2" />
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый метод копирования CBoard" />
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый метод копирования CBoard, новые методы *New" />
-    <option name="LAST_COMMIT_MESSAGE" value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый метод копирования CBoard, новые методы *New" />
+    <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New" />
+    <option name="LAST_COMMIT_MESSAGE" value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New" />
   </component>
 </project>
