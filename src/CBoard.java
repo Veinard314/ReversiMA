@@ -4,20 +4,25 @@ public class CBoard implements Cloneable{
     public static final int CB_XWIDTH = CB_DIM + 2; //размерность с учетом "клеток все поля"
     public static final int CB_YHEIGHT = CB_DIM + 2;
 
-    private final int[][] cb;
+    private int[][] cb;
 
 
     @Override
     protected CBoard clone()  {
+        CBoard clone = null;
         try {
-            return (CBoard)super.clone();
+            clone = (CBoard) super.clone();
+            clone.cb = cb.clone();
+            for (int i = 0; i < cb.length; i++) {
+                clone.cb[i] = cb[i].clone();
+            }
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+                e.printStackTrace();
         }
-
+         return clone;
     }
 
-    CBoard () {
+    public CBoard () {
         this.cb = new int[CB_XWIDTH][CB_YHEIGHT];
     }
     public int get(int x, int y) {
@@ -28,3 +33,5 @@ public class CBoard implements Cloneable{
         cb[x][y] = value;
     }
 }
+
+

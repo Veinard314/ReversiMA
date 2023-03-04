@@ -95,7 +95,8 @@ public class ScaledPanel extends JPanel {
                 //
 
                 moves.clear();
-                chessBoard.Test2(ChessBoard.CS_BLACK, moves);
+                chessBoard.Test3(ChessBoard.CS_BLACK, chessBoard.getCBoard());
+                //chessBoard.Test2(ChessBoard.CS_BLACK, moves);
                 //
                 chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);

@@ -146,23 +146,24 @@ public class ChessBoard {
 
     // Третий тестовый метод : оценка позиции не по числу перевернутых фишек,
     // а по подсчету общего числа фишек на доске после хода.
-/*
-    public void Test3(int player, CBoard board, CPair move) {
-        listValues.clear();
+    public void Test3(int player, CBoard board) {
+        ArrayList<CPair> toFlip = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
         for (int j = 1; j <= CBoard.CB_DIM; j++){
             for (int i = 1; i<= CBoard.CB_DIM; i++) {
-                if (GetSquare(i, j) == CS_EMPTY) {
-                    int res = findFlippedChips(i, j, player);
+                if (board.get(i, j) == CS_EMPTY) {
+                    int res = findFlippedChipsNew(i, j, player, toFlip, board);
                     if (res > 0) {
-                        listValues.add(i, j, );
-                        //String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + ")";
-                        //System.out.println(a);
+                        CBoard tmpBoard = board.clone();
+                        flipChipsNew(i, j, player, toFlip, tmpBoard);
+                        int res2 = countChipsNew(player, tmpBoard);
+                        String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(res) + "/" + String.valueOf(res2);
+                        System.out.println(a);
                     }
                 }
             }
         }
     }
-*/
+
 
     //Методы, которые работают с прямым указанием доски CBoard
     /*********************************************************/
@@ -228,7 +229,22 @@ public class ChessBoard {
         else return (findFlippedChipsNew(x, y, player, toFlip, board) > 0);
     }
 
+    // временный тестовый метод
+    public void showBoardNew (CBoard board) {
+        for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
+            for (int i = 0; i < CBoard.CB_XWIDTH; i++) {
+                switch (board.get(i,j)) {
+                    case CS_EMPTY -> System.out.print("*");
+                    case CS_BLACK -> System.out.print("B");
+                    case CS_WHITE -> System.out.print("W");
+                    case CS_OUT -> System.out.print(".");
+                    default -> System.out.print("?");
+                }
+            }
+            System.out.println();
+        }
 
+    }
     // временный тестовый метод
     public void showBoard () {
         for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
