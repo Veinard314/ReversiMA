@@ -122,7 +122,7 @@ public class ChessBoard {
         return possibleMoves;
     }
     // Второй тестовый метод: для Игрока player возвращает _список_ возможных (допустимых)
-    // ходов при текущей позиции на доске cb с о
+    // ходов при текущей позиции на доске cb
     public void Test2(int player, ArrayList<CPair> listValues) {
         listValues.clear();
         for (int j = 1; j <= CBoard.CB_DIM; j++){
@@ -189,6 +189,46 @@ public class ChessBoard {
     }
 
 
+    // Главная функция поиска лучшего хода (обертка для работы minimax)
+    // для игрока player на доске board составляет список возможных ходов
+    // и для каждого из них вызывает функцию minimax.
+    // Возвращает количество возможных ходов и координаты лучшего в pair.
+    int mainMoveSearch (int player, CBoard board, CPair pair) {
+        // подготавливаем список возможных ходов
+        ArrayList<CPair> moves = new ArrayList<CPair>();
+        ArrayList<CPair> toFlip = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
+        moves.clear();
+        for (int j = 1; j <= CBoard.CB_DIM; j++){
+            for (int i = 1; i<= CBoard.CB_DIM; i++) {
+                if (board.get(i, j) == CS_EMPTY) {
+                    if (findFlippedChipsNew(i, j, player, toFlip, board) > 0) {
+                        moves.add(new CPair(i, j));
+                    }
+                }
+            }
+        }
+        pair.x = 0;
+        pair.y = 0;
+        int bestMove = Integer.MIN_VALUE;
+        for (CPair t : moves) {
+            int currentMove = miniMax(player, t.x, t.y, board, true);
+            if (currentMove > bestMove) {
+                bestMove = currentMove;
+                pair.x = t.x;
+                pair.y = t.y;
+            }
+        }
+        return moves.size();
+    }
+
+    // Метод minimax
+    public int miniMax(int player, int x, int y, CBoard board, boolean maximizedPlayer ){
+        return 0;
+    }
+
+
+
+
     //Методы, которые работают с прямым указанием доски CBoard
     /*********************************************************/
     // возвращает число фишек (chips) определенного цвета на доске (board);
@@ -217,7 +257,7 @@ public class ChessBoard {
                 else if (square == player2) {
                     sign = -1;
                 } else sign = 0;
-                score += sign * bCoef[i+1][j+1];
+                score += sign * bCoef[i-1][j-1];
             }
         }
         return score;
