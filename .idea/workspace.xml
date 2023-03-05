@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New">
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New. &#10;Проработка Test3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677939847025</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New. &#10;Проработка Test3">
+      <created>1677998331848</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677998331848</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -160,6 +168,7 @@
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый метод копирования CBoard" />
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый метод копирования CBoard, новые методы *New" />
     <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New" />
-    <option name="LAST_COMMIT_MESSAGE" value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New" />
+    <MESSAGE value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New. &#10;Проработка Test3" />
+    <option name="LAST_COMMIT_MESSAGE" value="new classes + simple robot + проверка конструктора&#10;+после проверки логики Test/2, новый ПРАВИЛЬНЫЙ копирования CBoard, новые методы *New. &#10;Проработка Test3" />
   </component>
 </project>

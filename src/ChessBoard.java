@@ -131,36 +131,49 @@ public class ChessBoard {
     // Третий тестовый метод : оценка позиции не по числу перевернутых фишек,
     // а по подсчету общего числа фишек на доске после хода.
     // возвращает оценку и соответствующий ей лучший ход (pair)(?).
+    // четность/нечетность depth - важна?
     public int Test3(int player, int depth, CBoard board, CPair pair) {
-        if (depth == 0) {
+        // достигнута предельная глубина расчета
+        // либо на доске нет больше ходов для игрока player
+        if ((depth == 0) || (notCanMakeMove(player, board))) {
+            pair.x = 0;
+            pair.y = 0;
             return countChipsNew(player, board);
         }
-        // проверить на возможность хода вообще?
-        if (!canMakeMove(player, board)) {
-            return countChipsNew(player, board);
-        }
-
-        ArrayList<CPair> toFlip = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
-        int bestScore = Integer.MIN_VALUE;
-        //ArrayList<VPair> treeMoves = new ArrayList<>();
+        ArrayList<CPair> toFlip = new ArrayList<CPair>((CBoard.CB_DIM - 2) * 3);
+        ArrayList<VPair> treeMoves = new ArrayList<VPair>();
         for (int j = 1; j <= CBoard.CB_DIM; j++){
             for (int i = 1; i<= CBoard.CB_DIM; i++) {
                 if (board.get(i, j) == CS_EMPTY) {
                     int res = findFlippedChipsNew(i, j, player, toFlip, board);
                     if (res > 0) {
+                        //создаем новую доску
                         CBoard tmpBoard = board.clone();
+                        // делаем ход на ней и применяем изменения (переворачиваем фишки)
                         flipChipsNew(i, j, player, toFlip, tmpBoard);
-                        //int res2 = countChipsNew(player, tmpBoard);
                         int oppositePlayer = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
                         CPair tmpPair = new CPair(0, 0);
-                        int oRes = Тest3(oppositePlayer, depth - 1, tmpBoard, tmpPair);
-                        String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(res) + "/" + String.valueOf(res2);
+                        // оцениваем ход противника (oppositePlayer) на вновь получившийся позиции
+                        // и вычитаем его из оценки текущей позиции
+                        int value = countChipsNew(player, board) - Test3(oppositePlayer, depth - 1, tmpBoard, tmpPair);
+                        treeMoves.add(new VPair(i, j, value));
+                        String a = "Depth =" + String.valueOf(depth) + ". (" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(value);
                         System.out.println(a);
-                        //treeMoves.add(new VPair(i, i, res2));
                     }
                 }
             }
         }
+        // все клетки просмотрены, составлен список возможных ходов с оценками
+        // выбираем из них лучший ход
+        int bestScore = Integer.MIN_VALUE;
+        for (VPair t : treeMoves) {
+            if (t.value > bestScore) {
+                bestScore = t.value;
+                pair.x = t.x;
+                pair.y = t.y;
+            }
+        }
+        return bestScore;
     }
 
 
@@ -230,13 +243,13 @@ public class ChessBoard {
 
     // Проверяет наличие возможности хода на доске board игрока player
     // заканчивает работу после нахождения первого же возможного варианта
-    public boolean canMakeMove(int player, CBoard board) {
+    public boolean notCanMakeMove(int player, CBoard board) {
         for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
             for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
-                if (isLegalMoveNew(i, j, player, board)) return true;
+                if (isLegalMoveNew(i, j, player, board)) return false;
             }
         }
-        return false;
+        return true;
     }
 
     // временный тестовый метод
