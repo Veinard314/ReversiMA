@@ -59,15 +59,6 @@ public class ChessBoard {
         SetSquare(5, 5, CS_BLACK);
     }
 
-    // Основной алгоритм (depth - четный??
-    public int miniMax(CBoard board, int player, int depth) {
-        ChessBoard newBoard = new ChessBoard(board);
-        //int oppositePlayer = (player == ChessBoard.CS_BLACK) ? ChessBoard.CS_WHITE : ChessBoard.CS_BLACK;
-        if (depth == 0) { //достигли заданной глубины расчета
-            return newBoard.countChips(player);
-        }
-        return 0;
-    }
 
     // возвращает число фишек (chips) определенного цвета на доске;
     // также можно использовать для подсчета пустых клеток
@@ -139,8 +130,19 @@ public class ChessBoard {
 
     // Третий тестовый метод : оценка позиции не по числу перевернутых фишек,
     // а по подсчету общего числа фишек на доске после хода.
-    public void Test3(int player, CBoard board) {
+    // возвращает оценку и соответствующий ей лучший ход (pair)(?).
+    public int Test3(int player, int depth, CBoard board, CPair pair) {
+        if (depth == 0) {
+            return countChipsNew(player, board);
+        }
+        // проверить на возможность хода вообще?
+        if (!canMakeMove(player, board)) {
+            return countChipsNew(player, board);
+        }
+
         ArrayList<CPair> toFlip = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
+        int bestScore = Integer.MIN_VALUE;
+        //ArrayList<VPair> treeMoves = new ArrayList<>();
         for (int j = 1; j <= CBoard.CB_DIM; j++){
             for (int i = 1; i<= CBoard.CB_DIM; i++) {
                 if (board.get(i, j) == CS_EMPTY) {
@@ -148,9 +150,13 @@ public class ChessBoard {
                     if (res > 0) {
                         CBoard tmpBoard = board.clone();
                         flipChipsNew(i, j, player, toFlip, tmpBoard);
-                        int res2 = countChipsNew(player, tmpBoard);
+                        //int res2 = countChipsNew(player, tmpBoard);
+                        int oppositePlayer = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
+                        CPair tmpPair = new CPair(0, 0);
+                        int oRes = Тest3(oppositePlayer, depth - 1, tmpBoard, tmpPair);
                         String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(res) + "/" + String.valueOf(res2);
                         System.out.println(a);
+                        //treeMoves.add(new VPair(i, i, res2));
                     }
                 }
             }
@@ -220,6 +226,17 @@ public class ChessBoard {
         // если клетка не пустая сразу завершаем;
         if (board.get(x, y) != CS_EMPTY) return false;
         else return (findFlippedChipsNew(x, y, player, toFlip, board) > 0);
+    }
+
+    // Проверяет наличие возможности хода на доске board игрока player
+    // заканчивает работу после нахождения первого же возможного варианта
+    public boolean canMakeMove(int player, CBoard board) {
+        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
+            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
+                if (isLegalMoveNew(i, j, player, board)) return true;
+            }
+        }
+        return false;
     }
 
     // временный тестовый метод
