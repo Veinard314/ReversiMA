@@ -95,7 +95,7 @@ public class ScaledPanel extends JPanel {
                 //
 
                 moves.clear();
-                chessBoard.Test3(ChessBoard.CS_BLACK, 4, chessBoard.getCBoard(), pair);
+                chessBoard.Test3(ChessBoard.CS_BLACK, 2, chessBoard.getCBoard(), pair);
                 String b = "Ход черных (робот): ("+ String.valueOf(pair.x)+","+String.valueOf(pair.y)+")";
                 System.out.println(b);
                 //chessBoard.Test2(ChessBoard.CS_BLACK, moves);
