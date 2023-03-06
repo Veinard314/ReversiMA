@@ -200,9 +200,9 @@ public class ChessBoard {
         int bestScore = Integer.MIN_VALUE;
         for (CPair t : moves) {
             //делаем ход на новой доске
-
+            CBoard newBoard = makeMove(player, t, board);
             int currentMove = miniMax(player, depth, newBoard, false);
-            if (currentMove > bestMove) {
+            if (currentMove > bestMove) { //<??
                 bestMove = currentMove;
                 bestMove.x = t.x;
                 bestMove.y = t.y;
@@ -336,7 +336,9 @@ public class ChessBoard {
     // возвращает новую доску
     public CBoard makeMove (int player, CPair move, CBoard board){
         CBoard newBoard = board.clone();
-
+        ArrayList<CPair> toFlip = new ArrayList<CPair>((CBoard.CB_DIM - 2) * 3);
+        findFlippedChipsNew(move.x, move.y, player, toFlip, newBoard);
+        flipChipsNew(move.x, move.y, player, toFlip, newBoard);
         return newBoard;
     }
 
