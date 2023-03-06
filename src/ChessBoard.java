@@ -105,7 +105,7 @@ public class ChessBoard {
         int bestScore = Integer.MIN_VALUE;
         //CPair pair = new CPair(0,0);
         for (int j = 1; j <= CBoard.CB_DIM; j++){
-            for (int i = 1; i<= CBoard.CB_DIM; i++) {
+            for (int i = 1; i <= CBoard.CB_DIM; i++) {
                 if (GetSquare(i, j) == CS_EMPTY) {
                     int res = findFlippedChips(i, j, player);
                     if (res > 0) {
@@ -193,36 +193,26 @@ public class ChessBoard {
     // для игрока player на доске board составляет список возможных ходов
     // и для каждого из них вызывает функцию minimax.
     // Возвращает количество возможных ходов и координаты лучшего в pair.
-    int mainMoveSearch (int player, CBoard board, CPair pair) {
+    public CPair mainMoveSearch (int player, int depth, CBoard board) {
         // подготавливаем список возможных ходов
-        ArrayList<CPair> moves = new ArrayList<CPair>();
-        ArrayList<CPair> toFlip = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
-        moves.clear();
-        for (int j = 1; j <= CBoard.CB_DIM; j++){
-            for (int i = 1; i<= CBoard.CB_DIM; i++) {
-                if (board.get(i, j) == CS_EMPTY) {
-                    if (findFlippedChipsNew(i, j, player, toFlip, board) > 0) {
-                        moves.add(new CPair(i, j));
-                    }
-                }
-            }
-        }
-        pair.x = 0;
-        pair.y = 0;
-        int bestMove = Integer.MIN_VALUE;
+        ArrayList<CPair> moves = findPossibleMoves(player, board);
+        CPair bestMove = new CPair(-1, -1);
+        int bestScore = Integer.MIN_VALUE;
         for (CPair t : moves) {
-            int currentMove = miniMax(player, t.x, t.y, board, true);
+            //делаем ход на новой доске
+
+            int currentMove = miniMax(player, depth, newBoard, false);
             if (currentMove > bestMove) {
                 bestMove = currentMove;
-                pair.x = t.x;
-                pair.y = t.y;
+                bestMove.x = t.x;
+                bestMove.y = t.y;
             }
         }
-        return moves.size();
+        return bestMove;
     }
 
     // Метод minimax
-    public int miniMax(int player, int x, int y, CBoard board, boolean maximizedPlayer ){
+    public int miniMax(int player, int depth, CBoard board, boolean maximizedPlayer ){
         return 0;
     }
 
@@ -325,6 +315,31 @@ public class ChessBoard {
         }
         return true;
     }
+
+    //----------------------------------------------------------------------//
+    // Новое поколение процедур
+
+    // Поиск ВСЕХ доступных ходов для Игрока player для текущей позиции на доске board
+    // возвращает _список_ ArrayList<CPair> ходов
+    public ArrayList<CPair> findPossibleMoves(int player, CBoard board) {
+        ArrayList<CPair> list = new ArrayList<CPair>();
+        for (int j = 1; j <= CBoard.CB_DIM; j++){
+            for (int i = 1; i <= CBoard.CB_DIM; i++) {
+                if (isLegalMoveNew(i, j, player, board)) {
+                        list.add(new CPair(i, j));
+                    }
+                }
+            }
+        return list;
+    }
+    // Выполняет ход игрока player(move) на вновь созданной доске
+    // возвращает новую доску
+    public CBoard makeMove (int player, CPair move, CBoard board){
+        CBoard newBoard = board.clone();
+
+        return newBoard;
+    }
+
 
     // временный тестовый метод
     public void showBoardNew (CBoard board) {
