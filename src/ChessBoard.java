@@ -202,8 +202,8 @@ public class ChessBoard {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
             int currentMove = miniMax(player, depth, newBoard, false);
-            if (currentMove > bestMove) { //<??
-                bestMove = currentMove;
+            if (currentMove > bestScore) { //<??
+                bestScore = currentMove;
                 bestMove.x = t.x;
                 bestMove.y = t.y;
             }

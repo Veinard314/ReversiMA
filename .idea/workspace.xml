@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Test3 - неправильный минимакс, нжна новая реализация">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс">
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678027655278</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс">
+      <created>1678125605242</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1678125605242</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +198,7 @@
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)!" />
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки" />
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Test3 - неправильный минимакс, нжна новая реализация" />
-    <option name="LAST_COMMIT_MESSAGE" value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Test3 - неправильный минимакс, нжна новая реализация" />
+    <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс" />
+    <option name="LAST_COMMIT_MESSAGE" value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс" />
   </component>
 </project>
