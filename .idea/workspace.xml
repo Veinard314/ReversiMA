@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="тест минимакс прошел, результат сомнительный">
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="тест минимакс прошел, изменена функция оценки и ее эвристика">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
@@ -193,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678262640955</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="тест минимакс прошел, изменена функция оценки и ее эвристика">
+      <created>1678268026649</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1678268026649</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -225,6 +232,7 @@
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции" />
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции.  первая итерация проверки" />
     <MESSAGE value="тест минимакс прошел, результат сомнительный" />
-    <option name="LAST_COMMIT_MESSAGE" value="тест минимакс прошел, результат сомнительный" />
+    <MESSAGE value="тест минимакс прошел, изменена функция оценки и ее эвристика" />
+    <option name="LAST_COMMIT_MESSAGE" value="тест минимакс прошел, изменена функция оценки и ее эвристика" />
   </component>
 </project>

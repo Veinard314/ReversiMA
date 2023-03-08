@@ -40,6 +40,9 @@ private final int [][] bCoef = {
     // доска
     private CBoard cb;
 
+    // тестовый счетчик
+    public static int n;
+
     // Возвращает содержимое клетки доски
     public int GetSquare(CPair pair) {
         return cb.get(pair.x, pair.y);
@@ -206,6 +209,11 @@ private final int [][] bCoef = {
     public CPair mainMoveSearch (int player, int depth, CBoard board) {
         // подготавливаем список возможных ходов
         ArrayList<CPair> moves = findPossibleMoves(player, board);
+
+        //
+        n = 0;
+        //
+
         CPair bestMove = new CPair(-1, -1);
         int bestScore = Integer.MIN_VALUE;
         for (CPair t : moves) {
@@ -231,6 +239,9 @@ private final int [][] bCoef = {
     public int miniMax(int player, int depth, CBoard board, boolean maximizedPlayer ){
         // достигнута предельная глубина расчета
         // либо на доске нет больше ходов для игрока player
+
+        n++;
+
         if ((depth == 0) || (notCanMakeMove(player, board))) {
             return positionScore(player, board);
         }
