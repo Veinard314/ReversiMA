@@ -88,18 +88,24 @@ public class ScaledPanel extends JPanel {
                 // авто ход черных
 
                 //chessBoard.showBoard();
-                CPair pair = new CPair(0, 0);
+                //CPair pair = new CPair(0, 0);
                 //int res = chessBoard.Test(ChessBoard.CS_BLACK, pair);
                 //String b = "Ход черных (робот): ("+ String.valueOf(pair.x)+","+String.valueOf(pair.y)+") из доступных "+  String.valueOf(res);
                 //System.out.println(b);
                 //
-
+                /*
                 moves.clear();
                 chessBoard.Test3(ChessBoard.CS_BLACK, 4, chessBoard.getCBoard(), pair);
                 String b = "Ход черных (робот): ("+ String.valueOf(pair.x)+","+String.valueOf(pair.y)+")";
                 System.out.println(b);
                 //chessBoard.Test2(ChessBoard.CS_BLACK, moves);
                 //
+                chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
+                chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
+                chessBoard.flipChips(ChessBoard.CS_BLACK);
+                */
+                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 3, chessBoard.getCBoard());
+
                 chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.flipChips(ChessBoard.CS_BLACK);

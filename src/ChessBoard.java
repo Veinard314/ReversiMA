@@ -212,8 +212,39 @@ public class ChessBoard {
     }
 
     // Метод minimax
+    // поиск ВСЕГДА ведется для игрока player.
+    // на ходе player ищется максимальное значение оценочной функции, на ходе соперника - минимальное для игрока player
     public int miniMax(int player, int depth, CBoard board, boolean maximizedPlayer ){
-        return 0;
+        // достигнута предельная глубина расчета
+        // либо на доске нет больше ходов для игрока player
+        if ((depth == 0) || (notCanMakeMove(player, board))) {
+            return positionScore(player, board);
+        }
+        if (maximizedPlayer) { // поиск максимума
+            // Ищем все доступные ходы для игрока player
+            ArrayList<CPair> moves = findPossibleMoves(player, board);
+            int bestScore = Integer.MIN_VALUE;
+            for (CPair t :  moves) {
+                // делаем ход
+                CBoard newBoard = makeMove(player, t, board);
+                // рекурсивно вызываем miniMax для новой доски (после хода player), с уменьшенной глубиной и с минимизацией;
+                int score = miniMax(player, depth - 1, newBoard, false);
+                bestScore = Math.max(bestScore, score);
+            }
+            return bestScore;
+        } else {  //поиск минимума
+            ArrayList<CPair> moves = findPossibleMoves(player, board);
+            int bestScore = Integer.MAX_VALUE;
+            int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
+            for (CPair t :  moves) {
+                // делаем ход (для противника player, т.к. ветка минимизации)
+                CBoard newBoard = makeMove(player2, t, board);
+                // рекурсивно вызываем miniMax для новой доски (после хода player2, но для player!), с уменьшенной глубиной и с максимизацией;
+                int score = miniMax(player, depth - 1, newBoard, true);
+                bestScore = Math.min(bestScore, score);
+            }
+            return bestScore;
+        }
     }
 
 
