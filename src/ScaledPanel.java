@@ -107,7 +107,10 @@ public class ScaledPanel extends JPanel {
 
                 System.out.println("Ход черных:");
 
-                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 4, chessBoard.getCBoard());
+                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 6, chessBoard.getCBoard());
+
+                String k = "Лучший  ("+ String.valueOf(pair.x)+","+String.valueOf(pair.y)+")";
+                System.out.println(k);
 
                 chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);

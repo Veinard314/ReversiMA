@@ -24,14 +24,14 @@ public class ChessBoard {
     };
 */
 private final int [][] bCoef = {
-        {  130, -10, 15, 15, 15, 15, -10, 130 },
-        { -10, -10, -5, -5, -5, -5, -10,-10 },
-        {  15, -10, 10, 10, 10, 10, -10, 15 },
-        {  15, -10, 10, 10, 10, 10, -10, 15 },
-        {  15, -10, 10, 10, 10, 10, -10, 15 },
-        {  15, -10, 10, 10, 10, 10, -10, 15 },
-        { -10, -10, -5, -5, -5, -5, -10,-10 },
-        {  130, -10, 15, 15, 15, 15, -10, 130 }
+        {  120, -20, 20, 5, 5, 20, -20, 120 },
+        { -20, -40, -5, -5, -5, -5, -40,-20 },
+        {  20, - 5, 15,  3,  3, 15,  -5, 20 },
+        {   5,  -5,  3,  3,  3,  3,  -5,  5 },
+        {   5,  -5,  3,  3,  3,  3,  -5,  5 },
+        {  20, - 5, 15,  3,  3, 15,  -5, 20 },
+        { -20, -40, -5, -5, -5, -5, -40,-20  },
+        {  120, -20, 20, 5, 5, 20, -20, 120 }
 };
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private final ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
@@ -211,7 +211,7 @@ private final int [][] bCoef = {
         for (CPair t : moves) {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
-            int currentMove = miniMax(player, depth, newBoard, false);
+            int currentMove = miniMax(player, depth - 1, newBoard, false);
 
             String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
             System.out.println(a);
@@ -298,8 +298,27 @@ private final int [][] bCoef = {
         }
         return score;
     }
+*/
 
-  */
+    public int positionScore(int player, CBoard board) {
+        int score = 0;
+        int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
+        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
+            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
+                int square = board.get(i, j);
+                if (square == player) {
+                    score += bCoef[i - 1][j - 1];
+                } else if (square == player2) {
+                    score -= bCoef[i - 1][j - 1];
+                }
+            }
+        }
+        return score;
+    }
+
+
+
+    /*
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
@@ -315,7 +334,7 @@ private final int [][] bCoef = {
         }
         return score;
     }
-
+*/
 
 
     // Метод возвращает количество фишек, которые будут перевернуты после хода в клетку (x,y) доски board
