@@ -12,7 +12,7 @@ public class ChessBoard {
    // смещения вокруг текущей клетки начиная с "10" часов(левый верхний угол)  по часовой стрелке
     private final CPair[] offset = {new CPair(-1,-1), new CPair( 0,-1), new CPair( 1,-1), new CPair(-1, 0), new CPair( 1, 0), new CPair(-1, 1), new CPair( 0, 1), new CPair(1,  1)};
 
-    private final int [][] bCoef = {
+/*    private final int [][] bCoef = {
             {  25, -10, 15, 15, 15, 15, -10, 25 },
             { -10, -10, -5, -5, -5, -5, -10,-10 },
             {  15, -10, 10, 10, 10, 10, -10, 15 },
@@ -22,7 +22,17 @@ public class ChessBoard {
             { -10, -10, -5, -5, -5, -5, -10,-10 },
             {  25, -10, 15, 15, 15, 15, -10, 25 }
     };
-
+*/
+private final int [][] bCoef = {
+        {  130, -10, 15, 15, 15, 15, -10, 130 },
+        { -10, -10, -5, -5, -5, -5, -10,-10 },
+        {  15, -10, 10, 10, 10, 10, -10, 15 },
+        {  15, -10, 10, 10, 10, 10, -10, 15 },
+        {  15, -10, 10, 10, 10, 10, -10, 15 },
+        {  15, -10, 10, 10, 10, 10, -10, 15 },
+        { -10, -10, -5, -5, -5, -5, -10,-10 },
+        {  130, -10, 15, 15, 15, 15, -10, 130 }
+};
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private final ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
 
@@ -202,6 +212,10 @@ public class ChessBoard {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
             int currentMove = miniMax(player, depth, newBoard, false);
+
+            String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
+            System.out.println(a);
+
             if (currentMove > bestScore) { //<??
                 bestScore = currentMove;
                 bestMove.x = t.x;
@@ -265,6 +279,7 @@ public class ChessBoard {
     }
     // возвращает оценку позиции игрока player на доске (board);
     // с учетом эвристических коэфицциентов занятых игроками клеток
+ /*
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int sign;
@@ -279,6 +294,23 @@ public class ChessBoard {
                     sign = -1;
                 } else sign = 0;
                 score += sign * bCoef[i-1][j-1];
+            }
+        }
+        return score;
+    }
+
+  */
+    public int positionScore(int player, CBoard board) {
+        int score = 0;
+        int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
+        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
+            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
+                int square = board.get(i, j);
+                if (square == player) {
+                    score++;
+                } else if (square == player2) {
+                    score--;
+                }
             }
         }
         return score;

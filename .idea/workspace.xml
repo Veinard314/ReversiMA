@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции">
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции.  первая итерация проверки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
@@ -179,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678125747788</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции.  первая итерация проверки">
+      <created>1678259512318</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1678259512318</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -209,6 +216,7 @@
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Test3 - неправильный минимакс, нжна новая реализация" />
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс" />
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции" />
-    <option name="LAST_COMMIT_MESSAGE" value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции" />
+    <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции.  первая итерация проверки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции.  первая итерация проверки" />
   </component>
 </project>

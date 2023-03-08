@@ -104,13 +104,20 @@ public class ScaledPanel extends JPanel {
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.flipChips(ChessBoard.CS_BLACK);
                 */
-                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 3, chessBoard.getCBoard());
+
+                System.out.println("Ход черных:");
+
+                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 4, chessBoard.getCBoard());
 
                 chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                 chessBoard.flipChips(ChessBoard.CS_BLACK);
 
                 repaint();
+
+                String l = "W:" + String.valueOf(chessBoard.countChips(ChessBoard.CS_WHITE)) + " B:" + String.valueOf(chessBoard.countChips(ChessBoard.CS_BLACK));
+                System.out.println(l);
+
             }
 
 
