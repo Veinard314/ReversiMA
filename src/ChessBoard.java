@@ -271,7 +271,7 @@ private final int [][] bCoef = {
                 // делаем ход (для противника player, т.к. ветка минимизации)
                 CBoard newBoard = makeMove(player2, t, board);
                 // рекурсивно вызываем miniMax для новой доски (после хода player2, но для player!), с уменьшенной глубиной и с максимизацией;
-                int score = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, alpha, beta);
+                int score = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, true, alpha, beta);
                 bestScore = Math.min(bestScore, score);
                 // проверка альфа-бета
                 beta = Math.min(beta, bestScore);
