@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="тест минимакс прошел, изменена функция оценки и ее эвристика">
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="минимакс с альфа-бета отсечением, исправлен, тестируется">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678268026649</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="минимакс с альфа-бета отсечением, исправлен, тестируется">
+      <created>1678377370880</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1678377370880</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -232,6 +240,7 @@
     <MESSAGE value="Первый успешный прогон Test3 (минимакс)! + новая функция оценки&#10;Новый минимакс, новые функции.  первая итерация проверки" />
     <MESSAGE value="тест минимакс прошел, результат сомнительный" />
     <MESSAGE value="тест минимакс прошел, изменена функция оценки и ее эвристика" />
-    <option name="LAST_COMMIT_MESSAGE" value="тест минимакс прошел, изменена функция оценки и ее эвристика" />
+    <MESSAGE value="минимакс с альфа-бета отсечением, исправлен, тестируется" />
+    <option name="LAST_COMMIT_MESSAGE" value="минимакс с альфа-бета отсечением, исправлен, тестируется" />
   </component>
 </project>

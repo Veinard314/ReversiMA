@@ -275,7 +275,7 @@ private final int [][] bCoef = {
                 bestScore = Math.min(bestScore, score);
                 // проверка альфа-бета
                 beta = Math.min(beta, bestScore);
-                if (beta <= alpha) {
+                if (beta <= beta) {
                     break;
                 }
             }
@@ -287,7 +287,7 @@ private final int [][] bCoef = {
     // Метод minimax
     // поиск ВСЕГДА ведется для игрока player.
     // на ходе player ищется максимальное значение оценочной функции, на ходе соперника - минимальное для игрока player
-    public int miniMax(int player, int depth, CBoard board, boolean maximizedPlayer ){
+    public int miniMax(int player, int depth, CBoard board, boolean maximizedPlayer){
         // достигнута предельная глубина расчета
         // либо на доске нет больше ходов для игрока player
 
