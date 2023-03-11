@@ -12,7 +12,7 @@ public class ChessBoard {
    // смещения вокруг текущей клетки начиная с "10" часов(левый верхний угол)  по часовой стрелке
     private final CPair[] offset = {new CPair(-1,-1), new CPair( 0,-1), new CPair( 1,-1), new CPair(-1, 0), new CPair( 1, 0), new CPair(-1, 1), new CPair( 0, 1), new CPair(1,  1)};
 
-  private final int [][] bCoef = {
+ /* private final int [][] bCoef = {
             {  25, -10, 15, 15, 15, 15, -10, 25 },
             { -10, -10, -5, -5, -5, -5, -10,-10 },
             {  15, -10, 10, 10, 10, 10, -10, 15 },
@@ -22,8 +22,8 @@ public class ChessBoard {
             { -10, -10, -5, -5, -5, -5, -10,-10 },
             {  25, -10, 15, 15, 15, 15, -10, 25 }
     };
+*/
 
-    /*
 private final int [][] bCoef = {
         {  120, -20, 20, 5, 5, 20, -20, 120 },
         { -20, -40, -5, -5, -5, -5, -40,-20 },
@@ -34,7 +34,7 @@ private final int [][] bCoef = {
         { -20, -40, -5, -5, -5, -5, -40,-20  },
         {  120, -20, 20, 5, 5, 20, -20, 120 }
 };
-     */
+
 
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private final ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
@@ -222,8 +222,8 @@ private final int [][] bCoef = {
         for (CPair t : moves) {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
-            int currentMove = miniMax(player, depth - 1, newBoard, false);
-            //int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            //int currentMove = miniMax(player, depth - 1, newBoard, false);
+            int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
             System.out.println(a);
 
@@ -240,18 +240,27 @@ private final int [][] bCoef = {
     // поиск ВСЕГДА ведется для игрока player.
     // на ходе player ищется максимальное значение оценочной функции, на ходе соперника - минимальное для игрока player
     // отсечение:
+    /*
+    Параметры alpha и beta используются для обрезки дерева поиска. Альфа - это лучший результат, которого на данный момент достиг максимизирующий игрок,
+    а бета - это лучший результат, которого на данный момент достиг минимизирующий игрок.
+    Если в какой-либо момент во время поиска альфа-значение больше или равно бета-значению, поиск прекращается,
+    потому что мы знаем, что текущий игрок может показать результат не лучше, чем лучший результат, найденный на данный момент.
+     */
     public int miniMaxAlphaBetaPrunning(int player, int depth, CBoard board, boolean maximizedPlayer, int alpha, int beta ){
         // достигнута предельная глубина расчета
         // либо на доске нет больше ходов для игрока player
 
         n++;
 
-        if ((depth == 0) || (notCanMakeMove(player, board))) {
+        if (depth == 0 ) {
             return positionScore(player, board);
         }
         if (maximizedPlayer) { // поиск максимума
             // Ищем все доступные ходы для игрока player
             ArrayList<CPair> moves = findPossibleMoves(player, board);
+            //
+            if (moves.size() == 0) {return positionScore(player, board);}
+            //
             int bestScore = Integer.MIN_VALUE;
             for (CPair t :  moves) {
                 // делаем ход
@@ -260,25 +269,28 @@ private final int [][] bCoef = {
                 int score = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, alpha, beta);
                 bestScore = Math.max(bestScore, score);
                 // проверка альфа-бета
-                alpha = Math.max(alpha, bestScore);
+                alpha = Math.max(alpha, score);
                 if (beta <= alpha) {
                     break;
                 }
             }
             return bestScore;
         } else {  //поиск минимума
-            ArrayList<CPair> moves = findPossibleMoves(player, board);
-            int bestScore = Integer.MAX_VALUE;
             int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
-            for (CPair t :  moves) {
+            ArrayList<CPair> moves = findPossibleMoves(player2, board);
+            //
+            if (moves.size() == 0) {return positionScore(player, board);}
+            //
+            int bestScore = Integer.MAX_VALUE;
+           for (CPair t :  moves) {
                 // делаем ход (для противника player, т.к. ветка минимизации)
                 CBoard newBoard = makeMove(player2, t, board);
                 // рекурсивно вызываем miniMax для новой доски (после хода player2, но для player!), с уменьшенной глубиной и с максимизацией;
                 int score = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, true, alpha, beta);
                 bestScore = Math.min(bestScore, score);
                 // проверка альфа-бета
-                beta = Math.min(beta, bestScore);
-                if (beta <= beta) {
+                beta = Math.min(beta, score);
+                if (beta <= alpha) {
                     break;
                 }
             }
@@ -378,7 +390,7 @@ private final int [][] bCoef = {
         return score;
     }
 */
-/*
+
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
@@ -395,8 +407,8 @@ private final int [][] bCoef = {
         return score;
     }
 
-*/
 
+/*
 
     public int positionScore(int player, CBoard board) {
         int score = 0;
@@ -413,7 +425,7 @@ private final int [][] bCoef = {
         }
         return score;
     }
-
+*/
 
 
     // Метод возвращает количество фишек, которые будут перевернуты после хода в клетку (x,y) доски board

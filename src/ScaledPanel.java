@@ -73,6 +73,8 @@ public class ScaledPanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
             int col = (int) (e.getX() / DIAM) + 1;
             int row = (int) (e.getY() / DIAM) + 1;
+
+            // есть ошибка с ъодами, проверить
             if (chessBoard.isGameOver(chessBoard.getCBoard())) {
                 System.out.println("Game over");
                 int playerW = chessBoard.countChipsNew(ChessBoard.CS_WHITE, chessBoard.getCBoard());
@@ -121,7 +123,7 @@ public class ScaledPanel extends JPanel {
 
                         System.out.println("Ход черных:");
 
-                        CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 7, chessBoard.getCBoard());
+                        CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 8, chessBoard.getCBoard());
 
                         String k = "Лучший  (" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ") n=" + String.valueOf(chessBoard.n);
                         System.out.println(k);
@@ -139,7 +141,7 @@ public class ScaledPanel extends JPanel {
             } else { // нет хода для белых - ходит черный робот
                 System.out.println("Ход черных после пропуска белых:");
 
-                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 7, chessBoard.getCBoard());
+                CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 8, chessBoard.getCBoard());
 
                 String k = "Лучший  (" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ") n=" + String.valueOf(chessBoard.n);
                 System.out.println(k);

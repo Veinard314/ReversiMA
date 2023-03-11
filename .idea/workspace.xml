@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!)">
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!) + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
@@ -228,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678520964412</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!) + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!">
+      <created>1678525610137</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1678525610137</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -263,6 +270,7 @@
     <MESSAGE value="тест минимакс прошел, изменена функция оценки и ее эвристика" />
     <MESSAGE value="минимакс с альфа-бета отсечением, исправлен, тестируется" />
     <MESSAGE value="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!)" />
-    <option name="LAST_COMMIT_MESSAGE" value="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!)" />
+    <MESSAGE value="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!) + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!" />
+    <option name="LAST_COMMIT_MESSAGE" value="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!) + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!" />
   </component>
 </project>
