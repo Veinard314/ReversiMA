@@ -12,7 +12,7 @@ public class ChessBoard {
    // смещения вокруг текущей клетки начиная с "10" часов(левый верхний угол)  по часовой стрелке
     private final CPair[] offset = {new CPair(-1,-1), new CPair( 0,-1), new CPair( 1,-1), new CPair(-1, 0), new CPair( 1, 0), new CPair(-1, 1), new CPair( 0, 1), new CPair(1,  1)};
 
-/*    private final int [][] bCoef = {
+  private final int [][] bCoef = {
             {  25, -10, 15, 15, 15, 15, -10, 25 },
             { -10, -10, -5, -5, -5, -5, -10,-10 },
             {  15, -10, 10, 10, 10, 10, -10, 15 },
@@ -22,7 +22,8 @@ public class ChessBoard {
             { -10, -10, -5, -5, -5, -5, -10,-10 },
             {  25, -10, 15, 15, 15, 15, -10, 25 }
     };
-*/
+
+    /*
 private final int [][] bCoef = {
         {  120, -20, 20, 5, 5, 20, -20, 120 },
         { -20, -40, -5, -5, -5, -5, -40,-20 },
@@ -33,6 +34,8 @@ private final int [][] bCoef = {
         { -20, -40, -5, -5, -5, -5, -40,-20  },
         {  120, -20, 20, 5, 5, 20, -20, 120 }
 };
+*/
+     */
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private final ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
 
@@ -219,8 +222,8 @@ private final int [][] bCoef = {
         for (CPair t : moves) {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
-            //int currentMove = miniMax(player, depth - 1, newBoard, false);
-            int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            int currentMove = miniMax(player, depth - 1, newBoard, false);
+            //int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
             System.out.println(a);
 
@@ -293,9 +296,18 @@ private final int [][] bCoef = {
 
         n++;
 
+        // есть вопрос - проверяем отсутствие хода только для PLAYER
+        // может нужно для текущего игрока или вообще на общее отсутсвие ходов?
+        /*
         if ((depth == 0) || (notCanMakeMove(player, board))) {
             return positionScore(player, board);
         }
+        */
+        // Это вариант на общее отсутствие ходов
+        if ((depth == 0) || (isGameOver(board))) {
+            return positionScore(player, board);
+        }
+
         if (maximizedPlayer) { // поиск максимума
             // Ищем все доступные ходы для игрока player
             ArrayList<CPair> moves = findPossibleMoves(player, board);
@@ -337,6 +349,7 @@ private final int [][] bCoef = {
         }
         return count;
     }
+
     // возвращает оценку позиции игрока player на доске (board);
     // с учетом эвристических коэфицциентов занятых игроками клеток
  /*
@@ -359,7 +372,7 @@ private final int [][] bCoef = {
         return score;
     }
 */
-
+/*
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
@@ -376,9 +389,9 @@ private final int [][] bCoef = {
         return score;
     }
 
+*/
 
 
-    /*
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
@@ -394,7 +407,7 @@ private final int [][] bCoef = {
         }
         return score;
     }
-*/
+
 
 
     // Метод возвращает количество фишек, которые будут перевернуты после хода в клетку (x,y) доски board
@@ -456,6 +469,11 @@ private final int [][] bCoef = {
             }
         }
         return true;
+    }
+
+    // возвращает true если нет ходов для ВСЕХ игроков
+    public boolean isGameOver (CBoard board) {
+        return (findPossibleMoves(ChessBoard.CS_WHITE, board).size() == 0) && (findPossibleMoves(ChessBoard.CS_BLACK, board).size() == 0);
     }
 
     //----------------------------------------------------------------------//
