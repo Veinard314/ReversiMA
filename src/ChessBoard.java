@@ -303,14 +303,17 @@ private final int [][] bCoef = {
             return positionScore(player, board);
         }
         */
-        // Это вариант на общее отсутствие ходов
-        if ((depth == 0) || (isGameOver(board))) {
+        // Это вариант на общее отсутствие ходов - тоже неверно, т.к. если для текущего нет ходов, функция вернет +-maxint
+        if (depth == 0) {
             return positionScore(player, board);
         }
 
         if (maximizedPlayer) { // поиск максимума
             // Ищем все доступные ходы для игрока player
             ArrayList<CPair> moves = findPossibleMoves(player, board);
+            //
+            if (moves.size() == 0) {return positionScore(player, board);}
+            //
             int bestScore = Integer.MIN_VALUE;
             for (CPair t :  moves) {
                 // делаем ход
@@ -321,9 +324,12 @@ private final int [][] bCoef = {
             }
             return bestScore;
         } else {  //поиск минимума
-            ArrayList<CPair> moves = findPossibleMoves(player, board);
-            int bestScore = Integer.MAX_VALUE;
             int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
+            ArrayList<CPair> moves = findPossibleMoves(player2, board);
+            //
+            if (moves.size() == 0) {return positionScore(player, board);}
+            //
+            int bestScore = Integer.MAX_VALUE;
             for (CPair t :  moves) {
                 // делаем ход (для противника player, т.к. ветка минимизации)
                 CBoard newBoard = makeMove(player2, t, board);
