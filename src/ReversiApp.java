@@ -47,7 +47,11 @@ public class ReversiApp {
         EventQueue.invokeLater(() -> {
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new ScaledPanel(chessBoard));
+            frame.setResizable(false);
+
+            frame.add(new ScaledPanel(chessBoard), BorderLayout.CENTER);
+            frame.add(new ScorePanel(), BorderLayout.NORTH);
+
             frame.pack();
             frame.setVisible(true);
         });

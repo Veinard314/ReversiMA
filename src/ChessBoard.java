@@ -25,14 +25,14 @@ public class ChessBoard {
 */
 
 private final int [][] bCoef = {
-        {  120, -20, 20, 5, 5, 20, -20, 120 },
+        {  120, -20, 20, 5, 5, 20,  -20, 120 },
         { -20, -40, -5, -5, -5, -5, -40,-20 },
         {  20, - 5, 15,  3,  3, 15,  -5, 20 },
         {   5,  -5,  3,  3,  3,  3,  -5,  5 },
         {   5,  -5,  3,  3,  3,  3,  -5,  5 },
         {  20, - 5, 15,  3,  3, 15,  -5, 20 },
-        { -20, -40, -5, -5, -5, -5, -40,-20  },
-        {  120, -20, 20, 5, 5, 20, -20, 120 }
+        { -20, -40, -5, -5, -5, -5, -40,-20 },
+        {  120, -20, 20, 5,  5, 20, -20, 120}
 };
 
 
@@ -155,54 +155,6 @@ private final int [][] bCoef = {
         }
     }
 
-    // Третий тестовый метод : оценка позиции не по числу перевернутых фишек,
-    // а по подсчету общего числа фишек на доске после хода.
-    // возвращает оценку и соответствующий ей лучший ход (pair)(?).
-    // четность/нечетность depth - важна?
-    public int Test3(int player, int depth, CBoard board, CPair pair) {
-        // достигнута предельная глубина расчета
-        // либо на доске нет больше ходов для игрока player
-        if ((depth == 0) || (notCanMakeMove(player, board))) {
-            pair.x = 0;
-            pair.y = 0;
-            return positionScore(player, board);
-        }
-        ArrayList<CPair> toFlip = new ArrayList<CPair>((CBoard.CB_DIM - 2) * 3);
-        ArrayList<VPair> treeMoves = new ArrayList<VPair>();
-        for (int j = 1; j <= CBoard.CB_DIM; j++){
-            for (int i = 1; i<= CBoard.CB_DIM; i++) {
-                if (board.get(i, j) == CS_EMPTY) {
-                    int res = findFlippedChipsNew(i, j, player, toFlip, board);
-                    if (res > 0) {
-                        //создаем новую доску
-                        CBoard tmpBoard = board.clone();
-                        // делаем ход на ней и применяем изменения (переворачиваем фишки)
-                        flipChipsNew(i, j, player, toFlip, tmpBoard);
-                        int oppositePlayer = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
-                        CPair tmpPair = new CPair(0, 0);
-                        // оцениваем ход противника (oppositePlayer) на вновь получившийся позиции
-                        // и вычитаем его из оценки текущей позиции
-                        int value = positionScore(player, board) - Test3(oppositePlayer, depth - 1, tmpBoard, tmpPair);
-                        //int value = Test3(oppositePlayer, depth - 1, tmpBoard, tmpPair);
-                        treeMoves.add(new VPair(i, j, value));
-                        String a = "Depth =" + String.valueOf(depth) + ". (" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(value);
-                        System.out.println(a);
-                    }
-                }
-            }
-        }
-        // все клетки просмотрены, составлен список возможных ходов с оценками
-        // выбираем из них лучший ход
-        int bestScore = Integer.MIN_VALUE;
-        for (VPair t : treeMoves) {
-            if (t.value > bestScore) {
-                bestScore = t.value;
-                pair.x = t.x;
-                pair.y = t.y;
-            }
-        }
-        return bestScore;
-    }
 
 
     // Главная функция поиска лучшего хода (обертка для работы minimax)
@@ -222,8 +174,8 @@ private final int [][] bCoef = {
         for (CPair t : moves) {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
-            //int currentMove = miniMax(player, depth - 1, newBoard, false);
-            int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            int currentMove = miniMax(player, depth - 1, newBoard, false);
+            //int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
             System.out.println(a);
 
