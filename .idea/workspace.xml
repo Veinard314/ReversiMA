@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!">
-      <change afterPath="$PROJECT_DIR$/src/ScorePanel.java" afterDir="false" />
+    <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убланы лишние классы/функции">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReversiApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReversiApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VPair.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678548220199</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убланы лишние классы/функции">
+      <created>1679150615656</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1679150615656</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,6 +286,7 @@
     <MESSAGE value="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!)" />
     <MESSAGE value="минимакс с альфа-бета отсечением, исправлен, тестируется. Добавлена функция isGameOver - она используется в проверке минимакс(!) + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!" />
     <MESSAGE value="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!" />
-    <option name="LAST_COMMIT_MESSAGE" value="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!" />
+    <MESSAGE value="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убланы лишние классы/функции" />
+    <option name="LAST_COMMIT_MESSAGE" value="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убланы лишние классы/функции" />
   </component>
 </project>

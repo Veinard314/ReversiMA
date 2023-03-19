@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class ChessBoard {
 
@@ -188,6 +190,86 @@ private final int [][] bCoef = {
         return bestMove;
     }
 
+    public CPair mainMultiThreadMoveSearch (int player, int depth, CBoard board) {
+        class mtMinimax implements Callable<Integer> {
+            private int player;
+            private int depth;
+            private CBoard board;
+            private boolean maximizedPlayer;
+
+            public mtMinimax(int player, int depth, CBoard board, boolean maximizedPlayer) {
+                this.player = player;
+                this.depth = depth;
+                this.board = board;
+                this.maximizedPlayer = maximizedPlayer;
+            }
+
+            @Override
+            public Integer call() throws Exception {
+                return miniMax(player, depth, board, maximizedPlayer);
+            }
+        }
+        // Ищем все возможные ходы
+        ArrayList<CPair> moves = findPossibleMoves(player, board);
+        // Создаем потоки по числу возможных ходов - это не оптимально, рекомендуют не больше, чем ядер у процессора
+        //int nThreads = Runtime.getRuntime().availableProcessors(); // определяем число доступных процессоров
+        ExecutorService executor = Executors.newFixedThreadPool(moves.size());
+        List<Callable<Integer>> tasks = new ArrayList<>();
+
+        for (CPair t : moves) {
+            //делаем ход на новой доске
+            CBoard newBoard = makeMove(player, t, board);
+            //Добавляем новый процесс
+            tasks.add(new mtMinimax(player, depth - 1, newBoard, false));
+        }
+        // Запускаем коллекцию задач в пуле потоков
+        try {
+            List<Future<Integer>> results = executor.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Проверяем, завершились ли все задачи
+        // results.stream() создает поток элементов списка results, и мы можем выполнять над этим потоком операции, такие как allMatch:
+        // которая проверяет, удовлетворяет ли каждый объект типа Future в списке results методу isDone(), который возвращает true, если задача завершилась
+        List<Future<Integer>> results = null;
+        try {
+            results = executor.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Получаем результаты выполнения задач
+        // Только как теперь понять, какой результат какому ходу соответствует???
+        CPair bestMove = new CPair(-1, -1);
+        int bestScore = Integer.MIN_VALUE;
+        for (int i = 0; i < moves.size(); i++) {
+            Future<Integer> result = results.get(i);
+            int currentMove = Integer.MIN_VALUE;
+            try {
+                currentMove = result.get();
+                // обработка результата
+            } catch (InterruptedException e) {
+                // обработка InterruptedException
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // обработка ExecutionException
+                e.printStackTrace();
+            }
+            //
+            String a = "(" + String.valueOf(moves.get(i).x) + "," + String.valueOf(moves.get(i).y) + "):" + String.valueOf(currentMove);
+            System.out.println(a);
+            //
+            if (currentMove > bestScore) {
+                bestScore = currentMove;
+                bestMove.x = moves.get(i).x;
+                bestMove.y = moves.get(i).y;
+
+            }
+        }
+        executor.shutdown();
+        return bestMove;
+    }
+
     // Метод minimax c альфа-бета отсечением.
     // поиск ВСЕГДА ведется для игрока player.
     // на ходе player ищется максимальное значение оценочной функции, на ходе соперника - минимальное для игрока player
@@ -322,27 +404,7 @@ private final int [][] bCoef = {
 
     // возвращает оценку позиции игрока player на доске (board);
     // с учетом эвристических коэфицциентов занятых игроками клеток
- /*
-    public int positionScore(int player, CBoard board) {
-        int score = 0;
-        int sign;
-        int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
-        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
-            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
-                int square = board.get(i, j);
-                if (square == player) {
-                    sign = 1;
-                }
-                else if (square == player2) {
-                    sign = -1;
-                } else sign = 0;
-                score += sign * bCoef[i-1][j-1];
-            }
-        }
-        return score;
-    }
-*/
-
+    /*
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
@@ -358,9 +420,7 @@ private final int [][] bCoef = {
         }
         return score;
     }
-
-
-/*
+*/
 
     public int positionScore(int player, CBoard board) {
         int score = 0;
@@ -377,7 +437,7 @@ private final int [][] bCoef = {
         }
         return score;
     }
-*/
+
 
 
     // Метод возвращает количество фишек, которые будут перевернуты после хода в клетку (x,y) доски board
