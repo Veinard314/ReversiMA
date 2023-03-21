@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -41,12 +43,19 @@ private final int [][] bCoef = {
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private final ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
 
+   //
+
+    public CPair lastMove = new CPair(-1, -1);
 
     // доска
     private CBoard cb;
 
     // тестовый счетчик
     public static int n;
+
+
+
+
 
     // Возвращает содержимое клетки доски
     public int GetSquare(CPair pair) {
@@ -168,6 +177,7 @@ private final int [][] bCoef = {
         ArrayList<CPair> moves = findPossibleMoves(player, board);
 
         //
+        Instant start = Instant.now();
         n = 0;
         //
 
@@ -176,10 +186,10 @@ private final int [][] bCoef = {
         for (CPair t : moves) {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
-            int currentMove = miniMax(player, depth - 1, newBoard, false);
-            //int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
-            String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
-            System.out.println(a);
+            //int currentMove = miniMax(player, depth - 1, newBoard, false);
+            int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            //String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
+            //System.out.println(a);
 
             if (currentMove > bestScore) { //<??
                 bestScore = currentMove;
@@ -187,6 +197,11 @@ private final int [][] bCoef = {
                 bestMove.y = t.y;
             }
         }
+        // выводим время выполнения процедуры
+        Instant finish = Instant.now();
+        long elapsed = Duration.between(start, finish).toMillis();
+        System.out.println("Общее время поиска, мс: " + elapsed);
+        //
         return bestMove;
     }
 
@@ -196,19 +211,28 @@ private final int [][] bCoef = {
             private int depth;
             private CBoard board;
             private boolean maximizedPlayer;
-
-            public mtMinimax(int player, int depth, CBoard board, boolean maximizedPlayer) {
+            int alpha;
+            int beta;
+            public mtMinimax(int player, int depth, CBoard board, boolean maximizedPlayer, int alpha, int beta) {
                 this.player = player;
                 this.depth = depth;
                 this.board = board;
                 this.maximizedPlayer = maximizedPlayer;
+                this.alpha = alpha;
+                this.beta = beta;
             }
-
             @Override
             public Integer call() throws Exception {
-                return miniMax(player, depth, board, maximizedPlayer);
+                return miniMaxAlphaBetaPrunning(player, depth, board, maximizedPlayer, alpha, beta);
+                // return miniMax(player, depth, board, maximizedPlayer);
             }
         }
+
+        // замеряем время
+        Instant start = Instant.now();
+        n = 0;
+        //
+
         // Ищем все возможные ходы
         ArrayList<CPair> moves = findPossibleMoves(player, board);
         // Создаем потоки по числу возможных ходов - это не оптимально, рекомендуют не больше, чем ядер у процессора
@@ -220,24 +244,28 @@ private final int [][] bCoef = {
             //делаем ход на новой доске
             CBoard newBoard = makeMove(player, t, board);
             //Добавляем новый процесс
-            tasks.add(new mtMinimax(player, depth - 1, newBoard, false));
+            //tasks.add(new mtMinimax(player, depth - 1, newBoard, false));
+            tasks.add(new mtMinimax(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE));
         }
         // Запускаем коллекцию задач в пуле потоков
-        try {
-            List<Future<Integer>> results = executor.invokeAll(tasks);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Проверяем, завершились ли все задачи
-        // results.stream() создает поток элементов списка results, и мы можем выполнять над этим потоком операции, такие как allMatch:
-        // которая проверяет, удовлетворяет ли каждый объект типа Future в списке results методу isDone(), который возвращает true, если задача завершилась
         List<Future<Integer>> results = null;
         try {
             results = executor.invokeAll(tasks);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        // Проверяем, завершились ли все задачи
+        // results.stream() создает поток элементов списка results, и мы можем выполнять над этим потоком операции, такие как allMatch:
+        // которая проверяет, удовлетворяет ли каждый объект типа Future в списке results методу isDone(), который возвращает true, если задача завершилась
+        while (!results.stream().allMatch(Future::isDone)) {
+            // Если не все процессы завершены, то ждем
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                // Обработка исключения
+                e.printStackTrace();
+            }
+        }
         // Получаем результаты выполнения задач
         // Только как теперь понять, какой результат какому ходу соответствует???
         CPair bestMove = new CPair(-1, -1);
@@ -256,8 +284,8 @@ private final int [][] bCoef = {
                 e.printStackTrace();
             }
             //
-            String a = "(" + String.valueOf(moves.get(i).x) + "," + String.valueOf(moves.get(i).y) + "):" + String.valueOf(currentMove);
-            System.out.println(a);
+            //String a = "(" + String.valueOf(moves.get(i).x) + "," + String.valueOf(moves.get(i).y) + "):" + String.valueOf(currentMove);
+            //System.out.println(a);
             //
             if (currentMove > bestScore) {
                 bestScore = currentMove;
@@ -267,6 +295,13 @@ private final int [][] bCoef = {
             }
         }
         executor.shutdown();
+
+        // выводим время выполнения процедуры
+        Instant finish = Instant.now();
+        long elapsed = Duration.between(start, finish).toMillis();
+        System.out.println("Threads.Общее время поиска, мс: " + elapsed);
+        //
+
         return bestMove;
     }
 

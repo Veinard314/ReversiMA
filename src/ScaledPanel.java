@@ -55,6 +55,12 @@ public class ScaledPanel extends JPanel {
 
             }
         }
+        //
+        if ((chessBoard.lastMove.x > 0) && (chessBoard.lastMove.x <= CBoard.CB_DIM) && (chessBoard.lastMove.y > 0) && (chessBoard.lastMove.y <= CBoard.CB_DIM)) {
+            g2D.setColor(Color.red);
+            g2D.fillOval((chessBoard.lastMove.x - 1) * DIAM + 2, (chessBoard.lastMove.y - 1) * DIAM + 2,  7, 7);
+        }
+        //
     }
 
 
@@ -74,7 +80,7 @@ public class ScaledPanel extends JPanel {
             int col = (int) (e.getX() / DIAM) + 1;
             int row = (int) (e.getY() / DIAM) + 1;
 
-            // есть ошибка с ъодами, проверить
+            // есть ошибка с ходами, проверить
             if (chessBoard.isGameOver(chessBoard.getCBoard())) {
                 System.out.println("Game over");
                 int playerW = chessBoard.countChipsNew(ChessBoard.CS_WHITE, chessBoard.getCBoard());
@@ -95,12 +101,12 @@ public class ScaledPanel extends JPanel {
                     String a = "Ход белых:" + "(" + String.valueOf(col) + "," + String.valueOf(row) + ")";
                     System.out.println(a);
                     moves.clear();
-                    chessBoard.Test2(ChessBoard.CS_WHITE, moves);
+                    //chessBoard.Test2(ChessBoard.CS_WHITE, moves);
 
                     chessBoard.findFlippedChips(col, row, ChessBoard.CS_WHITE);
                     chessBoard.SetSquare(col, row, ChessBoard.CS_WHITE);
                     chessBoard.flipChips(ChessBoard.CS_WHITE);
-                    repaint();
+                    paintImmediately(0,0, getWidth(), getHeight()); ///!!! можно не все перерисовывать!
                     // авто ход черных
                     if (chessBoard.findPossibleMoves(ChessBoard.CS_BLACK, chessBoard.getCBoard()).size() > 0) {
                         //chessBoard.showBoard();
@@ -122,9 +128,11 @@ public class ScaledPanel extends JPanel {
                         */
 
                         System.out.println("Ход черных:");
-
-                        //CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 8, chessBoard.getCBoard());
-                        CPair pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 8, chessBoard.getCBoard());
+                        //
+                        //CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                        CPair pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                        //
+                        chessBoard.lastMove = pair;
                         //
                         String k = "Лучший  (" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ") n=" + String.valueOf(chessBoard.n);
                         System.out.println(k);
@@ -132,6 +140,7 @@ public class ScaledPanel extends JPanel {
                         chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                         chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                         chessBoard.flipChips(ChessBoard.CS_BLACK);
+
 
                         repaint();
                     } else System.out.println("Black pass");
