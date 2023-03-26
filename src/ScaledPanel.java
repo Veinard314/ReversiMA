@@ -5,13 +5,13 @@ import javax.swing.*;
 
 
 
-/** @author John B. Matthews; distribution per GNU Public License */
+
 public class ScaledPanel extends JPanel {
 
     private ChessBoard chessBoard;
 
-    private static final int SIZE = 8; // 8x8 board
-    private static final int DIAM = SIZE * 10; // checker size
+    private static final int SIZE = 8; // доска 8x8
+    private static final int DIAM = SIZE * 12; // размер фишки
     private static final int maxX = SIZE * DIAM;
     private static final int maxY = SIZE * DIAM;
 
@@ -55,12 +55,11 @@ public class ScaledPanel extends JPanel {
 
             }
         }
-        //
+        // отмечаем фишки, перевернутые последними
         g2D.setColor(Color.red);
         for (CPair t : chessBoard.getFlippedChips()) {
             g2D.drawRect((t.x - 1) * DIAM, (t.y - 1) * DIAM, DIAM, DIAM);
         }
-
         // Рисуем точку (отметку) на фишке, которую поставили последней
         if ((chessBoard.getLastMove().x > 0) && (chessBoard.getLastMove().x <= CBoard.CB_DIM) && (chessBoard.getLastMove().y > 0) && (chessBoard.getLastMove().y <= CBoard.CB_DIM)) {
             //g2D.setColor(Color.red);
@@ -112,6 +111,7 @@ public class ScaledPanel extends JPanel {
                     chessBoard.findFlippedChips(col, row, ChessBoard.CS_WHITE);
                     chessBoard.SetSquare(col, row, ChessBoard.CS_WHITE);
                     chessBoard.flipChips(ChessBoard.CS_WHITE);
+                    chessBoard.setLastMove(new CPair(col, row));
                     //chessBoard.setLastMoveColor(ChessBoard.CS_WHITE);
                     paintImmediately(0,0, getWidth(), getHeight()); ///!!! можно не все перерисовывать!
                     // авто ход черных

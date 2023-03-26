@@ -41,7 +41,7 @@ public class ReversiApp {
 
         ChessBoard chessBoard = new ChessBoard();
         chessBoard.initBoard();
-        chessBoard.showBoard();
+        //chessBoard.showBoard();
         //System.out.println(chessBoard.countChips(ChessBoard.CS_WHITE));
 
         EventQueue.invokeLater(() -> {
