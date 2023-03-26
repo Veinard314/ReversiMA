@@ -41,11 +41,32 @@ private final int [][] bCoef = {
 
 
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
-   private final ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
+   private ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
+    public void setFlippedChips(ArrayList<CPair> flippedChips) {
+        this.flippedChips = flippedChips;
+    }
+    public ArrayList<CPair> getFlippedChips() {
+        return flippedChips;
+    }
 
-   //
+    /*
+    private int lastMoveColor = 0;
+    public int getLastMoveColor() {
+        return lastMoveColor;
+    }
+    public void setLastMoveColor(int lastMoveColor) {
+        this.lastMoveColor = lastMoveColor;
+    }
+    */
+    //
+    private CPair lastMove = new CPair(-1, -1);
+    public void setLastMove(CPair lastMove) {
+        this.lastMove = lastMove;
+    }
 
-    public CPair lastMove = new CPair(-1, -1);
+    public CPair getLastMove() {
+        return lastMove;
+    }
 
     // доска
     private CBoard cb;
@@ -83,6 +104,7 @@ private final int [][] bCoef = {
     public CBoard getCBoard () {
         return cb;
     }
+
     // Устанавливает на поле стандартную первоначальную позицию, инициализирует в т.ч. края поля.
     public void initBoard() {
         for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
@@ -95,6 +117,10 @@ private final int [][] bCoef = {
         SetSquare(5, 4, CS_WHITE);
         SetSquare(4, 5, CS_WHITE);
         SetSquare(5, 5, CS_BLACK);
+        // Обнуляем переменные последнего хода и перевернутые фишки
+        setLastMove(new CPair(-1, -1));
+        getFlippedChips().clear();
+        //setLastMoveColor(0);
     }
 
 
@@ -260,14 +286,14 @@ private final int [][] bCoef = {
         while (!results.stream().allMatch(Future::isDone)) {
             // Если не все процессы завершены, то ждем
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 // Обработка исключения
                 e.printStackTrace();
             }
         }
         // Получаем результаты выполнения задач
-        // Только как теперь понять, какой результат какому ходу соответствует???
+        // Только как теперь понять, какой результат какому ходу соответствует??? - вроде бы в той же очередности, как добавляли задачи
         CPair bestMove = new CPair(-1, -1);
         int bestScore = Integer.MIN_VALUE;
         for (int i = 0; i < moves.size(); i++) {
