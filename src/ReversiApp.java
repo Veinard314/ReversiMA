@@ -41,6 +41,8 @@ public class ReversiApp {
 
         ChessBoard chessBoard = new ChessBoard();
         chessBoard.initBoard();
+
+        ScorePanel scorePanel = new ScorePanel();
         //chessBoard.showBoard();
         //System.out.println(chessBoard.countChips(ChessBoard.CS_WHITE));
 
@@ -49,8 +51,8 @@ public class ReversiApp {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
 
-            frame.add(new ScaledPanel(chessBoard), BorderLayout.CENTER);
-            frame.add(new ScorePanel(), BorderLayout.NORTH);
+            frame.add(new ScaledPanel(chessBoard, scorePanel), BorderLayout.CENTER);
+            frame.add(scorePanel, BorderLayout.NORTH);
 
             frame.pack();
             frame.setVisible(true);

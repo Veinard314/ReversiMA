@@ -10,8 +10,10 @@ public class ScaledPanel extends JPanel {
 
     private ChessBoard chessBoard;
 
+    private ScorePanel scorePanel;
+
     private static final int SIZE = 8; // доска 8x8
-    private static final int DIAM = SIZE * 12; // размер фишки
+    private static final int DIAM = SIZE * 10; // размер фишки
     private static final int maxX = SIZE * DIAM;
     private static final int maxY = SIZE * DIAM;
 
@@ -19,11 +21,13 @@ public class ScaledPanel extends JPanel {
     private static final Color light = new Color(0x40C040);
     private static final Color dark = new Color(0x404040);
 
-    public ScaledPanel(ChessBoard chessBoard) {
+    public ScaledPanel(ChessBoard chessBoard, ScorePanel scorePanel) {
 
         //super(true);
 
         this.chessBoard = chessBoard;
+
+        this.scorePanel = scorePanel;
 
         this.setPreferredSize(new Dimension(maxX, maxY));
 
@@ -113,6 +117,13 @@ public class ScaledPanel extends JPanel {
                     chessBoard.flipChips(ChessBoard.CS_WHITE);
                     chessBoard.setLastMove(new CPair(col, row));
                     //chessBoard.setLastMoveColor(ChessBoard.CS_WHITE);
+
+                    // не срабатывают
+                    //scorePanel.updatePlayer("Ход черных");
+                    //scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
+
+
+
                     paintImmediately(0,0, getWidth(), getHeight()); ///!!! можно не все перерисовывать!
                     // авто ход черных
                     if (chessBoard.findPossibleMoves(ChessBoard.CS_BLACK, chessBoard.getCBoard()).size() > 0) {
@@ -135,6 +146,10 @@ public class ScaledPanel extends JPanel {
                         */
 
                         System.out.println("Ход черных:");
+                        //scorePanel.updatePlayer("Ход черных");
+                        //scorePanel.paintImmediately();
+
+
                         //
                         //CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
                         CPair pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
@@ -148,6 +163,9 @@ public class ScaledPanel extends JPanel {
                         chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
                         chessBoard.flipChips(ChessBoard.CS_BLACK);
                         //chessBoard.setLastMoveColor(ChessBoard.CS_BLACK);
+
+                        scorePanel.updatePlayer("Ход белых");
+                        scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
 
                         repaint();
                     } else System.out.println("Black pass");
