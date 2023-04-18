@@ -16,6 +16,8 @@ public class ChessBoard {
    // смещения вокруг текущей клетки начиная с "10" часов(левый верхний угол)  по часовой стрелке
     private final CPair[] offset = {new CPair(-1,-1), new CPair( 0,-1), new CPair( 1,-1), new CPair(-1, 0), new CPair( 1, 0), new CPair(-1, 1), new CPair( 0, 1), new CPair(1,  1)};
 
+    // важное замечание!
+    // таблица коэффициентов должна меняться в зависимости от стадии игры (сколько осталось свободных клеток!)
  /* private final int [][] bCoef = {
             {  25, -10, 15, 15, 15, 15, -10, 25 },
             { -10, -10, -5, -5, -5, -5, -10,-10 },
@@ -27,7 +29,7 @@ public class ChessBoard {
             {  25, -10, 15, 15, 15, 15, -10, 25 }
     };
 */
-
+/*
 private final int [][] bCoef = {
         {  120, -20, 20, 5, 5, 20,  -20, 120 },
         { -20, -40, -5, -5, -5, -5, -40,-20 },
@@ -39,6 +41,7 @@ private final int [][] bCoef = {
         {  120, -20, 20, 5,  5, 20, -20, 120}
 };
 
+ */
 
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
@@ -73,9 +76,6 @@ private final int [][] bCoef = {
 
     // тестовый счетчик
     public static int n;
-
-
-
 
 
     // Возвращает содержимое клетки доски
@@ -150,50 +150,6 @@ private final int [][] bCoef = {
 
 
 
-    // тестовый метод: для Игрока player возвращает количество возможных (допустимых)
-    // ходов при текущей позиции на доске cb, координаты (pair) лучшего хода для Игрока player
-    // (на основе количества переворачиваемых после хода фишек)
-    public int Test(int player, CPair pair) {
-        int possibleMoves = 0;
-        int bestScore = Integer.MIN_VALUE;
-        //CPair pair = new CPair(0,0);
-        for (int j = 1; j <= CBoard.CB_DIM; j++){
-            for (int i = 1; i <= CBoard.CB_DIM; i++) {
-                if (GetSquare(i, j) == CS_EMPTY) {
-                    int res = findFlippedChips(i, j, player);
-                    if (res > 0) {
-                        possibleMoves++;
-                        if (bestScore < res) {
-                            bestScore = res;
-                            pair.x = i;
-                            pair.y = j;
-                        }
-                    }
-                }
-            }
-        }
-        return possibleMoves;
-    }
-    // Второй тестовый метод: для Игрока player возвращает _список_ возможных (допустимых)
-    // ходов при текущей позиции на доске cb
-    public void Test2(int player, ArrayList<CPair> listValues) {
-        listValues.clear();
-        for (int j = 1; j <= CBoard.CB_DIM; j++){
-            for (int i = 1; i<= CBoard.CB_DIM; i++) {
-                if (GetSquare(i, j) == CS_EMPTY) {
-                    int res = findFlippedChips(i, j, player);
-                    if (res > 0) {
-                        listValues.add(new CPair(i, j));
-                        String a = "(" + String.valueOf(i) + "," + String.valueOf(j) + "):" + String.valueOf(res);
-                        System.out.println(a);
-                    }
-                }
-            }
-        }
-    }
-
-
-
     // Главная функция поиска лучшего хода (обертка для работы minimax)
     // для игрока player на доске board составляет список возможных ходов
     // и для каждого из них вызывает функцию minimax.
@@ -231,6 +187,7 @@ private final int [][] bCoef = {
         return bestMove;
     }
 
+    // То же. что и предыдущая функция поиска лучшего хода, но с использованием мультипоточности.
     public CPair mainMultiThreadMoveSearch (int player, int depth, CBoard board) {
         class mtMinimax implements Callable<Integer> {
             private int player;
@@ -463,6 +420,7 @@ private final int [][] bCoef = {
         return count;
     }
 
+
     // возвращает оценку позиции игрока player на доске (board);
     // с учетом эвристических коэфицциентов занятых игроками клеток
     /*
@@ -482,6 +440,8 @@ private final int [][] bCoef = {
         return score;
     }
 */
+
+//  оценка позиции без коэффициентов, просто по подсчету (разнице) количества ч/б фишек
 
     public int positionScore(int player, CBoard board) {
         int score = 0;
@@ -593,7 +553,7 @@ private final int [][] bCoef = {
         return newBoard;
     }
 
-
+/*
     // временный тестовый метод
     public void showBoardNew (CBoard board) {
         for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
@@ -625,6 +585,8 @@ private final int [][] bCoef = {
         }
 
     }
+    */
+
 }
 
 

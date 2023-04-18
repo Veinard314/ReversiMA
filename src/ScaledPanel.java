@@ -10,7 +10,7 @@ public class ScaledPanel extends JPanel {
 
     private ChessBoard chessBoard;
 
-    private ScorePanel scorePanel;
+    public ScorePanel scorePanel;
 
     private static final int SIZE = 8; // доска 8x8
     private static final int DIAM = SIZE * 10; // размер фишки
@@ -21,13 +21,13 @@ public class ScaledPanel extends JPanel {
     private static final Color light = new Color(0x40C040);
     private static final Color dark = new Color(0x404040);
 
-    public ScaledPanel(ChessBoard chessBoard, ScorePanel scorePanel) {
+    public ScaledPanel(ChessBoard chessBoard) {
 
         //super(true);
 
         this.chessBoard = chessBoard;
 
-        this.scorePanel = scorePanel;
+        this.scorePanel = new ScorePanel();
 
         this.setPreferredSize(new Dimension(maxX, maxY));
 
@@ -72,6 +72,34 @@ public class ScaledPanel extends JPanel {
         //
     }
 
+    private class ScorePanel extends JPanel {
+
+        private JLabel scoreLabel;
+        private JLabel playerLabel;
+
+        private JButton restartButton;
+
+        public ScorePanel() {
+            setLayout(new GridLayout(3, 1));
+
+            scoreLabel = new JLabel("Score: 0 - 0", SwingConstants.CENTER);
+            add(scoreLabel);
+
+            playerLabel = new JLabel("Ход белых", SwingConstants.CENTER);
+            add(playerLabel);
+
+            restartButton = new JButton("Начать игру заново");
+            add(restartButton);
+        }
+
+        public void updateScore(int whiteScore, int blackScore) {
+            scoreLabel.setText("Score: " + whiteScore + " - " + blackScore);
+        }
+
+        public void updatePlayer(String player) {
+            playerLabel.setText(player);
+        }
+    }
 
     private class ComponentHandler extends ComponentAdapter {
 
