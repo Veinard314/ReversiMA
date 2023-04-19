@@ -79,8 +79,10 @@ public class ScaledPanel extends JPanel {
 
         private JButton restartButton;
 
+        private JButton robotButton;
+
         public ScorePanel() {
-            setLayout(new GridLayout(3, 1));
+            setLayout(new GridLayout(3, 2));
 
             scoreLabel = new JLabel("Score: 0 - 0", SwingConstants.CENTER);
             add(scoreLabel);
@@ -90,6 +92,61 @@ public class ScaledPanel extends JPanel {
 
             restartButton = new JButton("Начать игру заново");
             add(restartButton);
+            restartButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    chessBoard.initBoard();
+                    chessBoard.showBoard();
+                    ScaledPanel.this.paintImmediately(0, 0, ScaledPanel.this.getWidth(), ScaledPanel.this.getHeight());
+               }
+            });
+
+            robotButton = new JButton("Робот vs робот");
+            add(robotButton);
+            robotButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Деактивация кнопки пока AI vs AI не закончится
+                    robotButton.setEnabled(false);
+                    // пока рассмотрим случай, уогда партия начинается сначала
+                    chessBoard.initBoard();
+                    CPair pair = new CPair(-1, -1);
+
+                    do {
+                        System.out.print("Ход белых: ");
+                        //pair = chessBoard.randomMove(ChessBoard.CS_WHITE, chessBoard.getCBoard());
+                        if (chessBoard.findPossibleMoves(ChessBoard.CS_BLACK, chessBoard.getCBoard()).size() > 0) {
+                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_WHITE, 10, chessBoard.getCBoard());
+                            // делаем ход (?проверка?)
+                            chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_WHITE);
+                            chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_WHITE);
+                            chessBoard.flipChips(ChessBoard.CS_WHITE);
+                            chessBoard.setLastMove(pair);
+
+                            String a = "(" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ")";
+                            System.out.println(a);
+
+                            ScaledPanel.this.paintImmediately(0, 0, ScaledPanel.this.getWidth(), ScaledPanel.this.getHeight());
+                        } else {System.out.println("...пропущен");}
+
+
+                        System.out.print("Ход черных:");
+                        if (chessBoard.findPossibleMoves(ChessBoard.CS_BLACK, chessBoard.getCBoard()).size() > 0) {
+                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+
+                            chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
+                            chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
+                            chessBoard.flipChips(ChessBoard.CS_BLACK);
+                            chessBoard.setLastMove(pair);
+                            //
+                            String k = "Лучший  (" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ") n=" + String.valueOf(chessBoard.n);
+                            System.out.println(k);
+
+                            ScaledPanel.this.paintImmediately(0, 0, ScaledPanel.this.getWidth(), ScaledPanel.this.getHeight());
+                        }  else {System.out.println("...пропущен");}
+
+                    } while (!chessBoard.isGameOver(chessBoard.getCBoard()));
+                    robotButton.setEnabled(true);
+                }
+            });
         }
 
         public void updateScore(int whiteScore, int blackScore) {
@@ -100,6 +157,7 @@ public class ScaledPanel extends JPanel {
             playerLabel.setText(player);
         }
     }
+
 
     private class ComponentHandler extends ComponentAdapter {
 
@@ -180,8 +238,8 @@ public class ScaledPanel extends JPanel {
 
                         //
                         //CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
-                        // pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
-                        CPair pair = chessBoard.randomMove(ChessBoard.CS_BLACK, chessBoard.getCBoard());
+                        CPair pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                        //CPair pair = chessBoard.randomMove(ChessBoard.CS_BLACK, chessBoard.getCBoard());
                         //
                         chessBoard.setLastMove(pair);
                         //

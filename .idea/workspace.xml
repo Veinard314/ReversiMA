@@ -291,7 +291,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681804829625</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убраны лишние классы/функции. Добавлена многопоточность + альфа/бета м ногопоточности + исправлена ошибка&#10;Графические исправления в отображении ходов + scorepanel&#10;Добавлен класс ChessBoard2 - Вариант с оценкой позиции на основе эвристических коэффициентов клеток">
+      <created>1681890136508</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1681890136508</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

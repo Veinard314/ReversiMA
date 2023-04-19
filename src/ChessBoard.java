@@ -77,6 +77,8 @@ private final int [][] bCoef = {
     // тестовый счетчик
     public static int n;
 
+    // Признак логирования
+    //private static boolean IsLogYes = true;
 
     // Возвращает содержимое клетки доски
     public int GetSquare(CPair pair) {
@@ -578,6 +580,7 @@ private final int [][] bCoef = {
         }
 
     }
+  */
     // временный тестовый метод
     public void showBoard () {
         for (int j = 0; j < CBoard.CB_YHEIGHT; j++) {
@@ -593,7 +596,6 @@ private final int [][] bCoef = {
         }
 
     }
-    */
 
 }
 
