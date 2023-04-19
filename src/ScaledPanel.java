@@ -180,7 +180,8 @@ public class ScaledPanel extends JPanel {
 
                         //
                         //CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
-                        CPair pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                        // pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                        CPair pair = chessBoard.randomMove(ChessBoard.CS_BLACK, chessBoard.getCBoard());
                         //
                         chessBoard.setLastMove(pair);
                         //
@@ -205,6 +206,7 @@ public class ScaledPanel extends JPanel {
                 System.out.println("Ход черных после пропуска белых:");
 
                 CPair pair = chessBoard.mainMoveSearch(ChessBoard.CS_BLACK, 6, chessBoard.getCBoard());
+                //pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
 
                 String k = "Лучший  (" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ") n=" + String.valueOf(chessBoard.n);
                 System.out.println(k);

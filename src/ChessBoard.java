@@ -148,8 +148,6 @@ private final int [][] bCoef = {
         }
     }
 
-
-
     // Главная функция поиска лучшего хода (обертка для работы minimax)
     // для игрока player на доске board составляет список возможных ходов
     // и для каждого из них вызывает функцию minimax.
@@ -405,6 +403,16 @@ private final int [][] bCoef = {
         }
     }
 
+
+    // Метод делает случайных ход из возможных правильных
+    // анализ никакой не проводится  Используется для сравнения
+    CPair randomMove (int player, CBoard board) {
+        ArrayList<CPair> moves = new ArrayList<CPair>();
+        moves = findPossibleMoves(player, board);
+        int nMoves = moves.size();
+        if ( nMoves == 0 ) { return new CPair(-1, -1); }
+        else {return moves.get((int) Math.random() * nMoves);}
+    }
 
     //Методы, которые работают с прямым указанием доски CBoard
     /*********************************************************/
