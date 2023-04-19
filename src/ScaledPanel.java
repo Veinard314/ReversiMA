@@ -106,15 +106,15 @@ public class ScaledPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     // Деактивация кнопки пока AI vs AI не закончится
                     robotButton.setEnabled(false);
-                    // пока рассмотрим случай, уогда партия начинается сначала
+                    // пока рассмотрим случай, когда партия начинается сначала
                     chessBoard.initBoard();
                     CPair pair = new CPair(-1, -1);
 
                     do {
                         System.out.print("Ход белых: ");
                         //pair = chessBoard.randomMove(ChessBoard.CS_WHITE, chessBoard.getCBoard());
-                        if (chessBoard.findPossibleMoves(ChessBoard.CS_BLACK, chessBoard.getCBoard()).size() > 0) {
-                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_WHITE, 10, chessBoard.getCBoard());
+                        if (chessBoard.findPossibleMoves(ChessBoard.CS_WHITE, chessBoard.getCBoard()).size() > 0) {
+                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_WHITE, 6, chessBoard.getCBoard());
                             // делаем ход (?проверка?)
                             chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_WHITE);
                             chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_WHITE);
@@ -123,6 +123,10 @@ public class ScaledPanel extends JPanel {
 
                             String a = "(" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ")";
                             System.out.println(a);
+
+                            scorePanel.updatePlayer("Ход черных");
+                            scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
+                            scorePanel.paintImmediately(0, 0, scorePanel.getWidth(), scorePanel.getHeight());
 
                             ScaledPanel.this.paintImmediately(0, 0, ScaledPanel.this.getWidth(), ScaledPanel.this.getHeight());
                         } else {System.out.println("...пропущен");}
@@ -140,11 +144,16 @@ public class ScaledPanel extends JPanel {
                             String k = "Лучший  (" + String.valueOf(pair.x) + "," + String.valueOf(pair.y) + ") n=" + String.valueOf(chessBoard.n);
                             System.out.println(k);
 
+                            scorePanel.updatePlayer("Ход белых");
+                            scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
+                            scorePanel.paintImmediately(0, 0, scorePanel.getWidth(), scorePanel.getHeight());
+
                             ScaledPanel.this.paintImmediately(0, 0, ScaledPanel.this.getWidth(), ScaledPanel.this.getHeight());
                         }  else {System.out.println("...пропущен");}
 
                     } while (!chessBoard.isGameOver(chessBoard.getCBoard()));
                     robotButton.setEnabled(true);
+                    // сообщить, кто выиграл
                 }
             });
         }
@@ -204,10 +213,9 @@ public class ScaledPanel extends JPanel {
                     chessBoard.setLastMove(new CPair(col, row));
                     //chessBoard.setLastMoveColor(ChessBoard.CS_WHITE);
 
-                    // не срабатывают
-                    //scorePanel.updatePlayer("Ход черных");
-                    //scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
-
+                    scorePanel.updatePlayer("Ход черных");
+                    scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
+                    scorePanel.paintImmediately(0, 0, scorePanel.getWidth(), scorePanel.getHeight());
 
 
                     paintImmediately(0,0, getWidth(), getHeight()); ///!!! можно не все перерисовывать!
@@ -253,6 +261,7 @@ public class ScaledPanel extends JPanel {
 
                         scorePanel.updatePlayer("Ход белых");
                         scorePanel.updateScore(chessBoard.countChips(ChessBoard.CS_WHITE), chessBoard.countChips(ChessBoard.CS_BLACK));
+                        scorePanel.repaint();
 
                         repaint();
                     } else System.out.println("Black pass");

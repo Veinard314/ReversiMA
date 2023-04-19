@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="02a3482b-4b0c-44a3-ab46-3ef4d3e340cb" name="Changes" comment="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убраны лишние классы/функции. Добавлена многопоточность + альфа/бета м ногопоточности + исправлена ошибка&#10;Графические исправления в отображении ходов + scorepanel&#10;Добавлен класс ChessBoard2 - Вариант с оценкой позиции на основе эвристических коэффициентов клеток">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScaledPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScaledPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -298,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681890136508</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="минимакс и его версия с альфа-бета отсечением, исправлены.&#10;Добавлена функция isGameOver + поправил перебор возможных ходов в ветке минимизируемого игрока - там перебор по игроку 2 должен быть!&#10;Добавлен класс Scorepanel и убраны лишние классы/функции. Добавлена многопоточность + альфа/бета м ногопоточности + исправлена ошибка&#10;Графические исправления в отображении ходов + scorepanel&#10;Добавлен класс ChessBoard2 - Вариант с оценкой позиции на основе эвристических коэффициентов клеток">
+      <created>1681896817580</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1681896817580</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
