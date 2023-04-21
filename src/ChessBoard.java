@@ -16,32 +16,6 @@ public class ChessBoard {
    // смещения вокруг текущей клетки начиная с "10" часов(левый верхний угол)  по часовой стрелке
     private final CPair[] offset = {new CPair(-1,-1), new CPair( 0,-1), new CPair( 1,-1), new CPair(-1, 0), new CPair( 1, 0), new CPair(-1, 1), new CPair( 0, 1), new CPair(1,  1)};
 
-    // важное замечание!
-    // таблица коэффициентов должна меняться в зависимости от стадии игры (сколько осталось свободных клеток!)
- /* private final int [][] bCoef = {
-            {  25, -10, 15, 15, 15, 15, -10, 25 },
-            { -10, -10, -5, -5, -5, -5, -10,-10 },
-            {  15, -10, 10, 10, 10, 10, -10, 15 },
-            {  15, -10, 10, 10, 10, 10, -10, 15 },
-            {  15, -10, 10, 10, 10, 10, -10, 15 },
-            {  15, -10, 10, 10, 10, 10, -10, 15 },
-            { -10, -10, -5, -5, -5, -5, -10,-10 },
-            {  25, -10, 15, 15, 15, 15, -10, 25 }
-    };
-*/
-/*
-private final int [][] bCoef = {
-        {  120, -20, 20, 5, 5, 20,  -20, 120 },
-        { -20, -40, -5, -5, -5, -5, -40,-20 },
-        {  20, - 5, 15,  3,  3, 15,  -5, 20 },
-        {   5,  -5,  3,  3,  3,  3,  -5,  5 },
-        {   5,  -5,  3,  3,  3,  3,  -5,  5 },
-        {  20, - 5, 15,  3,  3, 15,  -5, 20 },
-        { -20, -40, -5, -5, -5, -5, -40,-20 },
-        {  120, -20, 20, 5,  5, 20, -20, 120}
-};
-
- */
 
     // за один ход можно перевернуть не более 3 полных направлений за минусом ограничивающих фишек (2) на каждом
    private ArrayList<CPair> flippedChips = new ArrayList<>((CBoard.CB_DIM - 2) * 3);
@@ -78,7 +52,7 @@ private final int [][] bCoef = {
     public static int n;
 
     // Признак логирования
-    //private static boolean IsLogYes = true;
+    private static boolean IsLogYes = true;
 
     // Возвращает содержимое клетки доски
     public int GetSquare(CPair pair) {
@@ -170,10 +144,8 @@ private final int [][] bCoef = {
             CBoard newBoard = makeMove(player, t, board);
             //int currentMove = miniMax(player, depth - 1, newBoard, false);
             int currentMove = miniMaxAlphaBetaPrunning(player, depth - 1, newBoard, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
-            //String a = "(" + String.valueOf(t.x) + "," + String.valueOf(t.y) + "):" + String.valueOf(currentMove);
-            //System.out.println(a);
 
-            if (currentMove > bestScore) { //<??
+            if (currentMove > bestScore) { // тут можно ввести вариативность, т.е. выбирать РАЗНЫЕ ходы, у которых одинаковая оценка...
                 bestScore = currentMove;
                 bestMove.x = t.x;
                 bestMove.y = t.y;
@@ -243,7 +215,7 @@ private final int [][] bCoef = {
         while (!results.stream().allMatch(Future::isDone)) {
             // Если не все процессы завершены, то ждем
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 // Обработка исключения
                 e.printStackTrace();
@@ -266,15 +238,10 @@ private final int [][] bCoef = {
                 // обработка ExecutionException
                 e.printStackTrace();
             }
-            //
-            //String a = "(" + String.valueOf(moves.get(i).x) + "," + String.valueOf(moves.get(i).y) + "):" + String.valueOf(currentMove);
-            //System.out.println(a);
-            //
             if (currentMove > bestScore) {
                 bestScore = currentMove;
                 bestMove.x = moves.get(i).x;
                 bestMove.y = moves.get(i).y;
-
             }
         }
         executor.shutdown();
@@ -360,14 +327,6 @@ private final int [][] bCoef = {
 
         n++;
 
-        // есть вопрос - проверяем отсутствие хода только для PLAYER
-        // может нужно для текущего игрока или вообще на общее отсутсвие ходов?
-        /*
-        if ((depth == 0) || (notCanMakeMove(player, board))) {
-            return positionScore(player, board);
-        }
-        */
-        // Это вариант на общее отсутствие ходов - тоже неверно, т.к. если для текущего нет ходов, функция вернет +-maxint
         if (depth == 0) {
             return positionScore(player, board);
         }
@@ -430,29 +389,7 @@ private final int [][] bCoef = {
         return count;
     }
 
-
-    // возвращает оценку позиции игрока player на доске (board);
-    // с учетом эвристических коэфицциентов занятых игроками клеток
-    /*
-    public int positionScore(int player, CBoard board) {
-        int score = 0;
-        int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
-        for (int j = 1; j < CBoard.CB_YHEIGHT - 1; j++) {
-            for (int i = 1; i < CBoard.CB_XWIDTH - 1; i++) {
-                int square = board.get(i, j);
-                if (square == player) {
-                    score += bCoef[i - 1][j - 1];
-                } else if (square == player2) {
-                    score -= bCoef[i - 1][j - 1];
-                }
-            }
-        }
-        return score;
-    }
-*/
-
-//  оценка позиции без коэффициентов, просто по подсчету (разнице) количества ч/б фишек
-
+    //  оценка позиции без коэффициентов, просто по подсчету (разнице) количества ч/б фишек
     public int positionScore(int player, CBoard board) {
         int score = 0;
         int player2 = (player == CS_WHITE) ? CS_BLACK : CS_WHITE;
@@ -468,8 +405,6 @@ private final int [][] bCoef = {
         }
         return score;
     }
-
-
 
     // Метод возвращает количество фишек, которые будут перевернуты после хода в клетку (x,y) доски board
     // фишки игрока player (CS_WHITE/CS_BLACK).
@@ -537,9 +472,6 @@ private final int [][] bCoef = {
         return (findPossibleMoves(ChessBoard.CS_WHITE, board).size() == 0) && (findPossibleMoves(ChessBoard.CS_BLACK, board).size() == 0);
     }
 
-    //----------------------------------------------------------------------//
-    // Новое поколение процедур
-
     // Поиск ВСЕХ доступных ходов для Игрока player для текущей позиции на доске board
     // возвращает _список_ ArrayList<CPair> ходов
     public ArrayList<CPair> findPossibleMoves(int player, CBoard board) {
@@ -553,6 +485,7 @@ private final int [][] bCoef = {
             }
         return list;
     }
+
     // Выполняет ход игрока player(move) на вновь созданной доске
     // возвращает новую доску
     public CBoard makeMove (int player, CPair move, CBoard board){

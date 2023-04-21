@@ -109,13 +109,18 @@ public class ScaledPanel extends JPanel {
                     // пока рассмотрим случай, когда партия начинается сначала
                     chessBoard.initBoard();
                     CPair pair = new CPair(-1, -1);
+                    ChessBoard2 chessBoard2 = new ChessBoard2();
 
                     do {
                         System.out.print("Ход белых: ");
                         //pair = chessBoard.randomMove(ChessBoard.CS_WHITE, chessBoard.getCBoard());
                         if (chessBoard.findPossibleMoves(ChessBoard.CS_WHITE, chessBoard.getCBoard()).size() > 0) {
-                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_WHITE, 6, chessBoard.getCBoard());
-                            // делаем ход (?проверка?)
+                            // pair = chessBoard.randomMove(ChessBoard.CS_WHITE, chessBoard.getCBoard());
+                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_WHITE, 8, chessBoard.getCBoard());
+                            //pair = chessBoard.mainMoveSearch(ChessBoard.CS_WHITE, 8, chessBoard.getCBoard());
+                            //chessBoard2.setbCoef(2);
+                            //pair = chessBoard2.mainMultiThreadMoveSearch(ChessBoard.CS_WHITE, 9, chessBoard.getCBoard());
+                            // делаем ход
                             chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_WHITE);
                             chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_WHITE);
                             chessBoard.flipChips(ChessBoard.CS_WHITE);
@@ -134,7 +139,9 @@ public class ScaledPanel extends JPanel {
 
                         System.out.print("Ход черных:");
                         if (chessBoard.findPossibleMoves(ChessBoard.CS_BLACK, chessBoard.getCBoard()).size() > 0) {
-                            pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                            //pair = chessBoard.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 10, chessBoard.getCBoard());
+                            chessBoard2.setbCoef(2);
+                            pair = chessBoard2.mainMultiThreadMoveSearch(ChessBoard.CS_BLACK, 8, chessBoard.getCBoard());
 
                             chessBoard.findFlippedChips(pair.x, pair.y, ChessBoard.CS_BLACK);
                             chessBoard.SetSquare(pair.x, pair.y, ChessBoard.CS_BLACK);
